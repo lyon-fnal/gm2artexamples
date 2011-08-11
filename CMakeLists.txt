@@ -1,6 +1,4 @@
 #
-#  gm2softwaretools/CMakeLists.txt
-#
 #  CMake build file for gm2artexamples
 #
 #  install steps:
@@ -75,9 +73,9 @@ set_version_from_ups( ${version} )
 # Define the flavor
 set_flavor_qual()
 
-message(STATUS "gm2 version will be ${version}")
-message(STATUS "gm2 qualifier will be ${qualifier}")
-message(STATUS "gm2 flavor will be ${UPSFLAVOR}")
+message(STATUS "version will be ${version}")
+message(STATUS "qualifier will be ${qualifier}")
+message(STATUS "flavor will be ${UPSFLAVOR}")
 
 # Use cmake directive include_directories to define include search path
 
