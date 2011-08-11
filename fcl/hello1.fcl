@@ -1,0 +1,27 @@
+#
+# The first example of running art: how to run one module.
+#
+# $Id: $
+# $Author: $
+# $Date: $
+#
+
+#include "minimalMessageService.fcl"
+services.message: @local::default_message
+
+process_name: helloWorld1
+
+source: {
+  module_type: EmptyEvent
+  maxEvents:  2
+}
+
+physics: {
+  analyzers: {
+    hello: { module_type: HelloWorld1 }
+  }
+
+  path1: [ hello ]
+  end_paths: [ path1 ]
+
+}
