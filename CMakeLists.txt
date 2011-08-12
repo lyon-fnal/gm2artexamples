@@ -1,6 +1,8 @@
 #
 #  CMake build file for gm2artexamples
 #
+#  You do not need to change anything in this file
+#
 #  install steps:
 #  cd /path/to/build/directory
 #  source /path/to/gm2artexamples/ups/setup_for_development
@@ -137,9 +139,10 @@ include(ArtDictionary)
 
 # Pickup  the ups directory
 subdirs(ups)
-
-subdirs(HelloWorld1)
 subdirs(fcl)
+
+# If you add directories, add them here
+subdirs(Lesson1)
 
 # packaging utility
 include(UseCPack)
