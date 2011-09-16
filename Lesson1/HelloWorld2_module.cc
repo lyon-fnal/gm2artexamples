@@ -23,7 +23,7 @@ public:
   explicit HelloWorld2(fhicl::ParameterSet const &p);
   virtual ~HelloWorld2();
 
-  // Handle data   sss
+  // Handle data
   virtual void beginJob(); // Runs on begin job
   virtual void beginRun(art::Run const &run); // Runs on new run
   virtual void analyze(art::Event const &e); // Runs on each event
