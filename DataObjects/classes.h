@@ -10,8 +10,9 @@
 
 #include "art/Persistency/Common/Wrapper.h"
 
-#include "DataObjects/MyLittleDatum.hh"
+#include "DataObjects/MyLittleDatumCollection.hh"
 
-// Vectors go here
-template class std::vector< artex::MyLittleDatum >;
-template class art::Wrapper< std::vector< artex::MyLittleDatum > >;
+// template the vector (do not use the typedef)
+template class std::vector< MyLittleDatumCollection >;
+// template the wrapper for the vector (typedef ok)
+template class art::Wrapper< MyLittleDatumCollection >;

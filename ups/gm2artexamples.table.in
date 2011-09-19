@@ -51,13 +51,16 @@ Common:
     # faking out unsetup
     envSet(${UPS_PROD_NAME_UC}_LIB,"") 
     execute( "find-path lib ${${UPS_PROD_NAME_UC}_FQ_DIR} ${UPS_PROD_DIR}", UPS_ENV, ${UPS_PROD_NAME_UC}_LIB)
-    pathPrepend(LD_LIBRARY_PATH, ${${UPS_PROD_NAME_UC}_LIB})
+    pathPrepend(LD_LIBRARY_PATH, ${${UPS_PROD_NAME_UC}_LIB}
 
     # add the bin directory to the path if it exists
     pathPrepend(PATH, ${UPS_PROD_DIR}/bin )
     pathPrepend(PATH, ${${UPS_PROD_NAME_UC}_FQ_DIR}/bin )
     # dropit -E removes non-existent directories
     Execute(dropit -E, NO_UPS_ENV, PATH)
+
+    # add fcl to the FHICL_FILE_PATH
+    pathPrepend(FHICL_FILE_PATH, ${UPS_PROD_DIR}/${UPS_PROD_NAME}/fcl
 
     # uncomment or add to this list as relevant
     setupRequired(cmake)

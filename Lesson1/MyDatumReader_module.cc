@@ -10,8 +10,7 @@
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 
-#include <vector>
-#include "DataObjects/MyLittleDatum.hh"
+#include "DataObjects/MyLittleDatumCollection.hh"
 
 namespace artex {
     class MyDatumReader;
@@ -45,9 +44,9 @@ void artex::MyDatumReader::analyze(art::Event const &e) {
     // Implementation of required member function here.
     
     // Extract a reference to the data
-    art::Handle< std::vector< artex::MyLittleDatum > > datumHandle;
+    art::Handle< MyLittleDatumCollection > datumHandle;
     e.getByLabel("makeDatumB", datumHandle); // The name here is the "producer label"
-    std::vector< artex::MyLittleDatum > const& datumVector = *datumHandle;
+    MyLittleDatumCollection const& datumVector = *datumHandle;
     
     mf::LogInfo log("test");
     log << "Number of datums in list = " << datumVector.size() << "\n";

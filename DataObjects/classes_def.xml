@@ -9,7 +9,7 @@
     <class name="art::Wrapper<artex::GenParticleCollection>"/> 
 -->
 
-    <!-- For MyLittleDatum -->
+    <!-- For MyLittleDatum - note that using the typedef will not work here-->
     <class name="artex::MyLittleDatum"/>
     <class name="std::vector< artex::MyLittleDatum >"/>
     <class name="art::Wrapper< std::vector< artex::MyLittleDatum > >"/>

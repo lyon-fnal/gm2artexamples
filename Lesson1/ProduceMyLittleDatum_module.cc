@@ -10,8 +10,7 @@
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 
-#include "DataObjects/MyLittleDatum.hh"
-#include <vector>
+#include "DataObjects/MyLittleDatumCollection.hh"
 
 using namespace std;
 
@@ -41,7 +40,7 @@ artex::ProduceMyLittleDatum::ProduceMyLittleDatum(fhicl::ParameterSet const &p)
     // Call appropriate Produces<>() functions here.
     // Note that if you wanted to produce more than one of these in the same
     // event, give an 'instance name' in the arguments. 
-    produces< vector< artex::MyLittleDatum > >();
+    produces< MyLittleDatumCollection >();
 }
 
 artex::ProduceMyLittleDatum::~ProduceMyLittleDatum() {
@@ -50,7 +49,7 @@ artex::ProduceMyLittleDatum::~ProduceMyLittleDatum() {
 
 void artex::ProduceMyLittleDatum::produce(art::Event &e) {
     //Create an empty data product (note, the space between the > > is important!)
-    auto_ptr< vector< artex::MyLittleDatum> > datums(new vector<artex::MyLittleDatum>);
+    auto_ptr< MyLittleDatumCollection > datums(new MyLittleDatumCollection);
     
     // Fill it
     datums->push_back( MyLittleDatum(3.14) );
