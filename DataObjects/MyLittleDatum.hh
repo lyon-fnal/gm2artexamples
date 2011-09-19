@@ -24,6 +24,11 @@ namespace artex {
             m_datum(datum)
         {}
         
+        // A default constructor
+        MyLittleDatum() :
+            m_datum(0)
+        {}
+        
         // Accessors
         float datum() const { return m_datum; }
         

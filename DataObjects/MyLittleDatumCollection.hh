@@ -1,20 +1,18 @@
 //
 //  MyLittleDatumCollection.hh
-//  gm2artexamples
+//  gm2artexamples-xcode
 //
 //  Created by Adam Lyon on 9/19/11.
-//  Copyright 2011 Fermilab. All rights reserved.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
 #ifndef GM2ARTEXAMPLES_MYLITTLEDATUMCOLLECTION_HH
 #define GM2ARTEXAMPLES_MYLITTLEDATUMCOLLECTION_HH
 
 #include <vector>
+#include "MyLittleDatum.hh"
 
-#include "DataObjects/MyLittleDatum.hh"
-
-namespace artex {
-    typdef std::vector<artex::MyLittleDatum> MyLittleDatumCollection;
-}
+// Make a typedef for a vector of MyLittleDatum so I don't have to type std::vector everywhere
+typedef std::vector< artex::MyLittleDatum > MyLittleDatumCollection;
 
 #endif

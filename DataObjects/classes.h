@@ -10,6 +10,8 @@
 
 #include "art/Persistency/Common/Wrapper.h"
 
-#include "DataProducts/MyLittleDatumCollection.hh"
+#include "DataObjects/MyLittleDatum.hh"
 
-template class art::Wrapper<artex::MyLittleDatumCollection>;
+// Vectors go here
+template class std::vector< artex::MyLittleDatum >;
+template class art::Wrapper< std::vector< artex::MyLittleDatum > >;
