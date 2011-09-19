@@ -1,0 +1,11 @@
+<!--  art::Wrapper lines need only top level data product objects  -->
+
+<lcgdict>
+    <class name="artex::MyHit"/>
+<!--    <class name="artex::GenParticleCollection"/> -->
+    <class name="CLHEP::Hep3Vector"/>
+    <class name="CLHEP::HepLorentzVector"/>
+<!--    <class name="art::Wrapper<artex::GenParticleCollection>"/> -->
+    <class name="artex::MyLittleDatum"/>
+    <class name="art::Wrapper<artex::MyLittleDatum"/>
+</lcgdict>
