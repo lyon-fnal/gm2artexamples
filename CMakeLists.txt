@@ -143,6 +143,7 @@ subdirs(fcl)
 
 # If you add directories, add them here
 subdirs(Lesson1)
+subdirs(DataObjects)
 
 # packaging utility
 include(UseCPack)

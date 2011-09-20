@@ -1,0 +1,32 @@
+## Make a simple datum
+
+#include "minimalMessageService.fcl"
+services.message: @local::default_message
+
+process_name:processA
+
+source: {
+module_type: EmptyEvent
+maxEvents:  2
+}
+
+outputs: {
+out1: {
+  module_type: RootOutput   
+  fileName: "data01.root"
+  }
+}
+
+physics: {
+  producers: {
+    makeDatumB: {
+     module_type: ProduceMyLittleDatum
+   }
+}
+
+path1: [ makeDatumB ]
+stream1:  [ out1 ]
+
+trigger_paths: [ path1 ]
+end_paths: [ stream1 ]
+}
