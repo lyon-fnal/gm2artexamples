@@ -1,14 +1,6 @@
 <!--  art::Wrapper lines need only top level data product objects  -->
 
 <lcgdict>
-<!--
-    <class name="artex::MyHit"/>
-    <class name="artex::GenParticleCollection"/>
-    <class name="CLHEP::Hep3Vector"/>
-    <class name="CLHEP::HepLorentzVector"/>
-    <class name="art::Wrapper<artex::GenParticleCollection>"/> 
--->
-
     <!-- For MyLittleDatum - note that using the typedef will not work here-->
     <class name="artex::MyLittleDatum"/>
     <class name="std::vector< artex::MyLittleDatum >"/>

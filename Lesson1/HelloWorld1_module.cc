@@ -1,12 +1,6 @@
-//
 //  The HelloWorld1 plugin; the first example of an analyzer module.
 //   You can generate boilerplate with the "artmod" command
 //
-//  $Id: $
-//  $Author: $
-//  $Date: $
-//
-
 // Includes from art and the packages on which it depends.
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"

@@ -4,18 +4,17 @@ services.message: @local::default_message
 process_name: readparts
 
 source: {
-module_type: RootInput
-maxEvents:  -1
-fileNames: [ "data01.root" ]
+  module_type: RootInput
+  maxEvents:  -1
+  fileNames: [ "data01.root" ]
 }
 
 physics: {
-analyzers: {
-hello: {
-module_type: MyDatumReader
-}
-}
-path1: [ hello ]
-end_paths: [ path1 ]
-
+  analyzers: {
+    hello: {
+      module_type: MyDatumReader
+    }
+  }
+ path1: [ hello ]
+ end_paths: [ path1 ]
 }

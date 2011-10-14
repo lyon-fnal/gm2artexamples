@@ -22,14 +22,9 @@ public:
     virtual ~MyDatumReader();
     
     virtual void analyze(art::Event const &e);
-    
-    
+        
 private:
-    
-    // Declare member data here.
-    
 };
-
 
 artex::MyDatumReader::MyDatumReader(fhicl::ParameterSet const &p)
 // :

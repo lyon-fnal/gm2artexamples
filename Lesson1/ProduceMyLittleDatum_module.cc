@@ -25,13 +25,9 @@ public:
     
     virtual void produce(art::Event &e);
     
-    
 private:
-    
-    // Declare member data here.
-    
+    // No member data here
 };
-
 
 artex::ProduceMyLittleDatum::ProduceMyLittleDatum(fhicl::ParameterSet const &p)
 // :
@@ -48,7 +44,7 @@ artex::ProduceMyLittleDatum::~ProduceMyLittleDatum() {
 }
 
 void artex::ProduceMyLittleDatum::produce(art::Event &e) {
-    //Create an empty data product (note, the space between the > > is important!)
+    //Create an empty data product
     auto_ptr< MyLittleDatumCollection > datums(new MyLittleDatumCollection);
     
     // Fill it

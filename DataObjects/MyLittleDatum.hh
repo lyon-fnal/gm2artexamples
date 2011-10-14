@@ -1,9 +1,6 @@
-//
-//  MyLittleDatum.h
-//  gm2artexamples-xcode
+//  MyLittleDatum.hh
 //
 //  Created by Adam Lyon on 9/18/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
 #ifndef GM2ARTEXAMPLES_MYLITTLEDATUM_H
@@ -39,10 +36,8 @@ namespace artex {
         inline std::ostream& operator<<(std::ostream& ost) {
             print(ost);
             return ost;
-        }
-            
-    };
-    
+        }            
+    };    
 }
 
 #endif

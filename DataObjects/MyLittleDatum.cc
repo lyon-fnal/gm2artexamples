@@ -1,9 +1,6 @@
-//
 //  MyLittleDatum.cpp
-//  gm2artexamples-xcode
 //
 //  Created by Adam Lyon on 9/18/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
 #include <iostream>
