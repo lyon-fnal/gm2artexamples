@@ -1,10 +1,19 @@
-# You do not have to change anything here
-# !!! But note, if you add a new fcl file in this directory, you will need to zap your
-# build area (gm2d zapBuild) and redo cmake ../src
+# !!! Note the list of FCL files. If you make a new FCL file in this directory,
+#     you must add it to this list. If you don't, it will be ignored.
+#
+
+# !!! Add new fcl files to the bottom of this list
+set( fcl_files
+        messageservice.fcl
+        minimalMessageService.fcl
+        hello1.fcl
+        hello2.fcl
+        makeDatum.fcl
+        readDatum.fcl
+)
 
 # install all *.fcl files in this directory
 # Let's automatically find all of the fcl files in this directory
-file(GLOB fcl_files *.fcl)
 install( FILES ${fcl_files}
          DESTINATION ${product}/${version}/${PROJECT_NAME}/fcl )
 
