@@ -10,6 +10,8 @@ set( fcl_files
         hello2.fcl
         makeDatum.fcl
         readDatum.fcl
+        makeHits.fcl
+        readHits.fcl
 )
 
 # install all *.fcl files in this directory

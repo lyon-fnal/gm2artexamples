@@ -1,12 +1,11 @@
-//  MyLittleDatum.cpp
-//
-//  Created by Adam Lyon on 9/18/11.
-//
+// Implementation file for the @MyLittleDatum@ class
 
 #include <iostream>
 
 #include "DataObjects/MyLittleDatum.hh"
 
+// Implementation of the @print@ member function. Note the use of the @artex@ 
+// namespace
 void artex::MyLittleDatum::print( std::ostream& ost ) const {
     ost << "MyLittleDatum: value = " << datum();
 }

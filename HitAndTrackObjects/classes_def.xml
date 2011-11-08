@@ -1,0 +1,9 @@
+<!--  art::Wrapper lines need only top level data product objects  -->
+
+<lcgdict>
+    <!-- For Hit - note that using the typedef will not work here-->
+    <class name="CLHEP::Hep3Vector"/>
+    <class name="artex::Hit"/>
+    <class name="std::vector< artex::Hit >"/>
+    <class name="art::Wrapper< std::vector< artex::Hit > >"/>
+</lcgdict>

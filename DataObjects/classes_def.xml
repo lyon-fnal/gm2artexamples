@@ -1,8 +1,26 @@
-<!--  art::Wrapper lines need only top level data product objects  -->
+<!-- Along with @classes.h@, this @classes_def.xml@ file tells @ROOT@ how to store our data -->
 
+<!-- We need to write a @class@ line for each object cascading from the vector and wrapper. -->
+<!-- So in this case, we -->
+<!-- * Start with @art::Wrapper&lt; vector of MyLittleDatum &gt;@ -->
+<!-- * Then the vector itself -->
+<!-- * Then what's in the vector (in this case the @MyLittleDatum@ class) -->
+<!-- If the @MyLittleDatum@ class contained a non-primitive type, we would add a class line for it too. -->
+<!-- But in this case, @MyLittleDatum@ only contains a _float_, which is a primitive type -->
+
+<!-- h3. Main code -->
+
+<!-- Use the @lcgdict@ tag (this is a holdover from CMS) -->
 <lcgdict>
-    <!-- For MyLittleDatum - note that using the typedef will not work here-->
-    <class name="artex::MyLittleDatum"/>
+
+    <!-- The contents of the vector, our @MyLittleDatum@ object -->
+    <class name="artex::MyLittleDatum"/>  
+    
+    <!-- The vector we wish to store -->
     <class name="std::vector< artex::MyLittleDatum >"/>
+    
+    <!-- The wrapper of the vector -->
     <class name="art::Wrapper< std::vector< artex::MyLittleDatum > >"/>
+    
+<!-- Close the tag -->    
 </lcgdict>
