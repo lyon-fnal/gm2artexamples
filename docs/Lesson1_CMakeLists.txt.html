@@ -1,0 +1,24 @@
+<!DOCTYPE html> <html> <head>   <title>Lesson1/CMakeLists.txt</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link href="css/prettify.css" type="text/css" rel="stylesheet" />   <link rel="stylesheet" media="all" href="css/docco.css" />   <script type="text/javascript" src="js/prettify.js"></script> </head> <body onload="prettyPrint()">   <div id="container">     <div id="background"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h2>               <a href="../Lesson1/CMakeLists.txt">Lesson1/CMakeLists.txt</a>             </h2>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <p>This CMakeLists.txt file handles ART modules. Note that  there are no header files here (ART modules do not have headers) </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>Use the <code>simple_plugin</code> macro to tell CMake how to build the modules. You need  a call for every module in the directory that you want to build. The syntax is, <pre>simple_plugin( moduleName &#8220;module&#8221; dependentLibrary )</pre> The arguments are: </p>
+
+<ul><li><code>moduleName</code> is the name of your module (without the <code>_module</code>) </li>
+<li><code>&#8220;module&#8221;</code> is a literal to identify your library as a module </li>
+<li><code>dependentLibrary</code> (optional) is either a particular library that your module depends on or a list of libraries </li>
+</ul>
+
+<p>See below for examples </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>Two simple ART modules </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">simple_plugin(HelloWorld1 "module")
+simple_plugin(HelloWorld2 "module")
+
+</pre>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>Two more ART modules that depend on the classes from the <code>DataObjects</code> directory  (e.g. the <code>MyLittleDatum</code> class). Note that the dependent library for <code>MyLittleDatum</code>  needs to be given (see the <code>CMakeLists.txt</code> file in <code>DataObjects</code> for the library name) </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">simple_plugin(ProduceMyLittleDatum "module" "gm2artexamples_dataobjects")
+simple_plugin(MyDatumReader "module" "gm2artexamples_dataobjects")
+
+</pre>             </td>           </tr>                </tbody>     </table>   </div> </body> </html>

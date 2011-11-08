@@ -1,0 +1,69 @@
+<!DOCTYPE html> <html> <head>   <title>DataObjects/MyLittleDatum.hh</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link href="css/prettify.css" type="text/css" rel="stylesheet" />   <link rel="stylesheet" media="all" href="css/docco.css" />   <script type="text/javascript" src="js/prettify.js"></script> </head> <body onload="prettyPrint()">   <div id="container">     <div id="background"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h2>               <a href="../DataObjects/MyLittleDatum.hh">DataObjects/MyLittleDatum.hh</a>             </h2>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <p>Header file for the <code>MyLittleDatum</code> class.  </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>MyLittleDatum is a small example of creating, storing, and retrieving a simple data object in ART. Note that there are no references to anything in ART itself </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>Guards </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">#ifndef GM2ARTEXAMPLES_MYLITTLEDATUM_H
+#define GM2ARTEXAMPLES_MYLITTLEDATUM_H
+
+</pre>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>We need to include <code>iosfwd</code> for <code>std::ostream</code> </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">#include &lt;iosfwd&gt; 
+
+</pre>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>We put everything in the <code>artex</code> namespace. Get used to using namespaces, as  they are important for avoiding name clashes that can cause hard to find bugs </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">namespace artex {
+    
+</pre>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>Now we define the class     </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">    class MyLittleDatum {
+        
+    private:
+        
+</pre>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>We&#8217;ll just have one data member, a simple float </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">        float m_datum;  
+        
+    public:
+        
+</pre>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <p>The constructor </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">        MyLittleDatum(float datum) :
+            m_datum(datum)
+        {}
+        
+</pre>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <p>Every class needs a default constructor for the persistency mechanism </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">        MyLittleDatum() :
+            m_datum(0)
+        {}
+        
+</pre>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <p>An accessor for the data member </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">        float datum() const { return m_datum; }
+        
+</pre>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <p>Print method for nicely displaying the object. Used by the <code>&lt;&lt;</code> operator below </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">        void print( std::ostream& ) const;
+        
+</pre>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <p>Printing operator (shift left). For example,  <pre>mf::LogVerbatim(&#8220;test&#8221;) << m;</pre> </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">        inline std::ostream& operator&lt;&lt;(std::ostream& ost) {
+            print(ost);
+            return ost;
+        }            
+    
+</pre>             </td>           </tr>                               <tr id="section-13">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>               <p>End of class     </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">    };    
+   
+</pre>             </td>           </tr>                               <tr id="section-14">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-14">&#182;</a>               </div>               <p>End of namespace     </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">}
+
+#endif
+
+</pre>             </td>           </tr>                </tbody>     </table>   </div> </body> </html>

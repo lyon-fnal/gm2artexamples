@@ -1,0 +1,86 @@
+<!DOCTYPE html> <html> <head>   <title>Lesson1/HelloWorld1_module.cc</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link href="css/prettify.css" type="text/css" rel="stylesheet" />   <link rel="stylesheet" media="all" href="css/docco.css" />   <script type="text/javascript" src="js/prettify.js"></script> </head> <body onload="prettyPrint()">   <div id="container">     <div id="background"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h2>               <a href="../Lesson1/HelloWorld1_module.cc">Lesson1/HelloWorld1_module.cc</a>             </h2>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <p>The <code>HelloWorld1</code> ART module or plugin </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>A very simple ART module example that simply prints a message with the event number for each event.  </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>Note that ART modules are isolated &#8211; nothing else should ever depend on code in an ART module. Therefore, ART modules have no header (.hh) files. </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>This module will be an <strong>Analyzer</strong>, that is the <code>analyze</code> member function runs for each event. <code>analyze</code> gets a <code>const</code> reference to the event, which  means that it cannot store anything in the event.  </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>The skeleton of this code was generated with  <pre>artmod analyzer artex::HelloWorld1</pre> (see <a href="https://cdcvs.fnal.gov/redmine/projects/g-2/wiki/Artmod">here</a> for information about <code>artmod</code> ) </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <h3>Main code </h3>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>Include needed ART headers </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">#include "art/Framework/Core/EDAnalyzer.h"
+#include "art/Framework/Core/ModuleMacros.h"
+
+</pre>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <p>Declare everything in a namespace </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">namespace artex {
+    
+</pre>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <h3>Class declaration </h3>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <p>Declare the class for our analyzer, <code>HelloWorld1</code>. Note that it inherits from <code>art::EDAnalyzer</code>, the base class for analyzers.  </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">  class HelloWorld1 : public art::EDAnalyzer {
+
+  public:
+
+</pre>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <p>The constructor. Note that the configuration parameters for this module are passed in (and not used in this example). There is also a default constructor not written because the compiler generated one is sufficient. <br /> <br /> See <a href="http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml?showone=Explicit_Constructors#Explicit_Constructors">here</a> for information about the use of <code>explicit</code>. All single argument constructors (as is the case here) should be  declared as <code>explicit</code>.  </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">    explicit HelloWorld1(fhicl::ParameterSet const& pset);
+
+</pre>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <p>Declare the <code>analyze</code> member function that runs on each event </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">    void analyze(const art::Event& event );
+      
+</pre>             </td>           </tr>                               <tr id="section-13">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>               <p>Declare the destructor (as virtual in case someone inherits from this object) </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">    virtual void ~HelloWorld1();
+      
+</pre>             </td>           </tr>                               <tr id="section-14">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-14">&#182;</a>               </div>               <p>End the class declaration </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">  };
+    
+</pre>             </td>           </tr>                               <tr id="section-15">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-15">&#182;</a>               </div>               <h3>Class implementation </h3>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-16">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-16">&#182;</a>               </div>               <p>Definition for constructor (it doesn&#8217;t do anything) </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">  HelloWorld1::HelloWorld1(fhicl::ParameterSet const& pset){
+  }
+    
+</pre>             </td>           </tr>                               <tr id="section-17">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-17">&#182;</a>               </div>               <p>Definition of the destructor (does nothing) </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">  HelloWorld1::~HelloWorld1() {}
+
+</pre>             </td>           </tr>                               <tr id="section-18">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-18">&#182;</a>               </div>               <p>Definition of the <code>analyze</code> member function &#8211; run for each event. Note that the event is passed  to the member function as a <code>const</code> reference. That means that the event cannot be changed by the  member function </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">  void HelloWorld1::analyze(const art::Event& event){
+      
+</pre>             </td>           </tr>                               <tr id="section-19">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-19">&#182;</a>               </div>               <p>Write a message to the message facility. <code>mf::LogVerbatim</code> writes the information as it is presented ( <code>mf::LogInfo</code> or similar will also print out information about the  function from where it is called). The <code>&#8220;test&#8221;</code> argument is the <em>category</em> of the message.  You can set the configuration of <code>MessageFacility</code> to prescale or hide messages of particular categotries. Note that we display the event identifier from the passed in <code>art::Event</code> reference. </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">    mf::LogVerbatim("test") &lt;&lt; "Hello, world. From analyze. " &lt;&lt; event.id();
+      
+</pre>             </td>           </tr>                               <tr id="section-20">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-20">&#182;</a>               </div>               <p>End the member function   </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">  }
+    
+</pre>             </td>           </tr>                               <tr id="section-21">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-21">&#182;</a>               </div>               <p>End of namespace artex </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">} 
+
+</pre>             </td>           </tr>                               <tr id="section-22">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-22">&#182;</a>               </div>               <p>These are some necessary boilerplate for the ROOT persistency system </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">using artex::HelloWorld1;
+DEFINE_ART_MODULE(HelloWorld1);
+
+</pre>             </td>           </tr>                </tbody>     </table>   </div> </body> </html>

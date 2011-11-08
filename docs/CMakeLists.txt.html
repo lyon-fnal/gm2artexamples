@@ -1,0 +1,173 @@
+<!DOCTYPE html> <html> <head>   <title>CMakeLists.txt</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link href="css/prettify.css" type="text/css" rel="stylesheet" />   <link rel="stylesheet" media="all" href="css/docco.css" />   <script type="text/javascript" src="js/prettify.js"></script> </head> <body onload="prettyPrint()">   <div id="container">     <div id="background"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h2>               <a href="../CMakeLists.txt">CMakeLists.txt</a>             </h2>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <p>This file is the main CMakeLists.txt file for the <code>gm2artexamples</code> package.  </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>Before running cmake, you must ensure that all external packages are set up already (e.g. source all necessary setup files, including the appropriate <code>setup_for_development</code> script). </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>When you run cmake, you must run it from the build directory. e.g. <code>cmake ../src</code> </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>You typically only have to make minor changes to this file. The  areas where you would have to do so are marked with &#8212;> </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>This most important place where you would have to add to this file is at the bottom. </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <h3>Main code </h3>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+
+</pre>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>Ensure we are using a moden version of CMake </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
+
+</pre>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <p>&#8212;> Define the name of this project (replace <code>gm2artexamples</code> with your  project name &#8211; use all lowercase) </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">PROJECT (gm2artexamples)
+set (product gm2artexamples)
+
+message(STATUS "--- BUILDING ${product} FROM ${PROJECT_SOURCE_DIR} --- ")
+
+</pre>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <p>Determine the version hash or tag from git. This calls a script <code>git-version-gen.sh</code> in <code>$GM2SOFTWARETOOLS_DIR/bin/</code> ( <code>setup gm2</code> puts it in your path) </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">execute_process(COMMAND git-version-gen.sh
+                WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+                OUTPUT_VARIABLE version
+                OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+</pre>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <p>&#8212;> If you want a qualifier (typically not) then add it here </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">SET (qualifier "")
+
+</pre>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <p>Load in some Cmake helper modules &#8211; some gymnastics follow </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/Modules)
+
+</pre>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <p>We use CMake modules from the <code>CETBUILDTOOLS</code> area </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">SET ( CETBUILDTOOLS_VERSION $ENV{CETBUILDTOOLS_VERSION} )
+IF (NOT CETBUILDTOOLS_VERSION)
+    MESSAGE (FATAL_ERROR "ERROR: setup cetbuildtools to get the cmake modules")
+ENDIF()
+set(CMAKE_MODULE_PATH "${CMAKE_ROOT}/Modules")
+set(CMAKE_MODULE_PATH $ENV{CETBUILDTOOLS_DIR}/Modules $ENV{ART_FQ_DIR}/Modules ${CMAKE_MODULE_PATH})
+message(STATUS "module path is ${CMAKE_MODULE_PATH}" )
+
+
+</pre>             </td>           </tr>                               <tr id="section-13">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>               <p>Set the install prefix from the environment variable (typically set in the local setup script) </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">#IF ($ENV{CMAKE_INSTALL_PREFIX} )
+  SET ( CMAKE_INSTALL_PREFIX $ENV{CMAKE_INSTALL_PREFIX} )
+#ENDIF($ENV{CMAKE_INSTALL_PREFIX} )
+
+message(STATUS "Install prefix is ${CMAKE_INSTALL_PREFIX}")
+
+</pre>             </td>           </tr>                               <tr id="section-14">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-14">&#182;</a>               </div>               <p>Because we want to move these libraries about, do not embed full path in shared libraries or executables </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">set (CMAKE_SKIP_RPATH)
+
+</pre>             </td>           </tr>                               <tr id="section-15">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-15">&#182;</a>               </div>               <p>Make sure we know where gcc is and require it </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">set( GCC_VERSION $ENV{GCC_VERSION} )
+if ( NOT GCC_VERSION )
+  message(FATAL_ERROR "Can't locate GCC_VERSION, required for building ToyCmake")
+endif ()
+
+</pre>             </td>           </tr>                               <tr id="section-16">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-16">&#182;</a>               </div>               <p>Load some external cmake modules that we&#8217;ll use later </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">include (FindUpsPackage)
+include(FindUpsBoost)
+include(FindUpsRoot)
+include( SetFlavorQual )
+include(ParseUpsVersion)
+include(EnsureOutOfSourceBuild)
+include(CetMake)
+
+</pre>             </td>           </tr>                               <tr id="section-17">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-17">&#182;</a>               </div>               <p>Make sure someone isn&#8217;t typing cmake in the source code tree </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">cet_ensure_out_of_source_build()
+
+</pre>             </td>           </tr>                               <tr id="section-18">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-18">&#182;</a>               </div>               <p>Set the ups version </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">message(STATUS ${version})
+set_version_from_ups( ${version} )
+
+</pre>             </td>           </tr>                               <tr id="section-19">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-19">&#182;</a>               </div>               <p>Define the flavor (e.g. Linux x86_64) </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">set_flavor_qual()
+
+message(STATUS "version will be ${version}")
+message(STATUS "qualifier will be ${qualifier}")
+message(STATUS "flavor will be ${UPSFLAVOR}")
+
+</pre>             </td>           </tr>                               <tr id="section-20">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-20">&#182;</a>               </div>               <p>Use cmake directive include_directories to define include search path </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-21">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-21">&#182;</a>               </div>               <p>We want to be able to #include &#8220;MyProduct/MyHeader.h&#8221; in source code, generated code, and user code. We achieve this by putting all headers into a MyProduct subdirectory instead of an include subdirectory. <code>PROJECT_SOURCE_DIR</code> is a cmake variable which points to the top of the source code tree. </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">include_directories ("${PROJECT_SOURCE_DIR}")
+
+</pre>             </td>           </tr>                               <tr id="section-22">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-22">&#182;</a>               </div>               <p>Generated code will be created in the build directory, so we also add PROJECT_BINARY_DIR to the include search path. This step may be omitted if there are no generated headers. </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">include_directories ("${PROJECT_BINARY_DIR}")
+
+</pre>             </td>           </tr>                               <tr id="section-23">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-23">&#182;</a>               </div>               <p>Check for dependencies </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">find_ups_product( gccxml $ENV{GCCXML_VERSION} )
+find_ups_product( art $ENV{ART_VERSION} )
+find_ups_product (messagefacility $ENV{MESSAGEFACILITY_VERSION} )
+find_ups_product( fhiclcpp $ENV{FHICLCPP_VERSION}  )
+find_ups_product( cetlib $ENV{CETLIB_VERSION} )
+find_ups_product( libsigcpp $ENV{LIBSIGCPP_VERSION} )
+include_directories( $ENV{LIBSIGCPP_INC}/sigc++-2.0 )
+include_directories( $ENV{LIBSIGCPP_LIB}/sigc++-2.0/include )
+include_directories( $ENV{CLHEP_INC} )
+find_ups_product( cpp0x $ENV{CPP0X_VERSION} )
+find_ups_root( $ENV{ROOT_VERSION} )
+find_ups_boost( $ENV{BOOST_VERSION} )
+
+</pre>             </td>           </tr>                               <tr id="section-24">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-24">&#182;</a>               </div>               <p>&#8212;> You may have to add additional dependency checks here  like <code style="GEANT4_VERSION;padding-left:1em;padding-right:1em;">find_ups_geant4( $ENV{GEANT4_VERSION} )</code> </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-25">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-25">&#182;</a>               </div>               <p>Let cmake define variables for external libraries and executables </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">#define FHICLCPP
+find_library( FHICLCPP NAMES fhiclcpp PATHS $ENV{FHICLCPP_LIB} )
+
+</pre>             </td>           </tr>                               <tr id="section-26">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-26">&#182;</a>               </div>               <p>Define CLHEP </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">find_library( CLHEP  NAMES CLHEP   PATHS $ENV{CLHEP_BASE}/lib )
+
+</pre>             </td>           </tr>                               <tr id="section-27">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-27">&#182;</a>               </div>               <p>Define CETLIB </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">find_library( CETLIB NAMES cetlib PATHS $ENV{CETLIB_LIB} )
+
+</pre>             </td>           </tr>                               <tr id="section-28">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-28">&#182;</a>               </div>               <p>Building all libraries and binaries in a single lib and bin directory is useful for a complex product like art. </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">SET(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
+
+</pre>             </td>           </tr>                               <tr id="section-29">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-29">&#182;</a>               </div>               <p>Build all executables in a single directory </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+
+</pre>             </td>           </tr>                               <tr id="section-30">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-30">&#182;</a>               </div>               <p>Include cmake modules that define &#8220;simple_plugin&#8221; and other tools </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">include(BuildPlugins)
+include(ArtDictionary)
+
+</pre>             </td>           </tr>                               <tr id="section-31">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-31">&#182;</a>               </div>               <p>Include the packaging utility </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">include(UseCPack)
+
+</pre>             </td>           </tr>                               <tr id="section-32">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-32">&#182;</a>               </div>               <p>&#8212;> You have to tell Cmake about <strong>EVERY</strong> subdirectory that contains  directories or files to build. If you don&#8217;t, cmake will ignore those subdirectories and you will be sad. The order does not really matter (but it is the order of building, which should not really matter because CMake will figure out the dependencies) </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">subdirs(ups)
+subdirs(fcl)
+subdirs(Lesson1)
+subdirs(DataObjects)
+subdirs(HitAndTrackObjects)
+subdirs(Lesson2)
+
+
+
+</pre>             </td>           </tr>                </tbody>     </table>   </div> </body> </html>

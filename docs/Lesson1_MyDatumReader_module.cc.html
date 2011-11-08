@@ -1,0 +1,58 @@
+<!DOCTYPE html> <html> <head>   <title>Lesson1/MyDatumReader_module.cc</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link href="css/prettify.css" type="text/css" rel="stylesheet" />   <link rel="stylesheet" media="all" href="css/docco.css" />   <script type="text/javascript" src="js/prettify.js"></script> </head> <body onload="prettyPrint()">   <div id="container">     <div id="background"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h2>               <a href="../Lesson1/MyDatumReader_module.cc">Lesson1/MyDatumReader_module.cc</a>             </h2>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <pre class="prettyprint">////////////////////////////////////////////////////////////////////////
+</pre>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>Class:       MyDatumReader Module Type: analyzer File:        MyDatumReader_module.cc </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">//
+</pre>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>Generated at Mon Sep 19 12:50:17 2011 by Adam Lyon using artmod from art v0_07_13. </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">////////////////////////////////////////////////////////////////////////
+
+#include "art/Framework/Core/EDAnalyzer.h"
+#include "art/Framework/Core/ModuleMacros.h"
+
+#include "DataObjects/MyLittleDatumCollection.hh"
+
+namespace artex {
+    class MyDatumReader;
+}
+
+class artex::MyDatumReader : public art::EDAnalyzer {
+public:
+    explicit MyDatumReader(fhicl::ParameterSet const &p);
+    virtual ~MyDatumReader();
+    
+    virtual void analyze(art::Event const &e);
+        
+private:
+};
+
+artex::MyDatumReader::MyDatumReader(fhicl::ParameterSet const &p)
+</pre>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>: Initialize member data here. </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">{}
+
+artex::MyDatumReader::~MyDatumReader() {
+</pre>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>Clean up dynamic memory and other resources here. </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">}
+
+void artex::MyDatumReader::analyze(art::Event const &e) {
+</pre>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>Implementation of required member function here. </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">    
+</pre>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>Extract a reference to the data </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">    art::Handle&lt; MyLittleDatumCollection &gt; datumHandle;
+    e.getByLabel("makeDatumB", datumHandle); // The name here is the "producer label"
+    MyLittleDatumCollection const& datumVector = *datumHandle;
+    
+    mf::LogInfo log("test");
+    log &lt;&lt; "Number of datums in list = " &lt;&lt; datumVector.size() &lt;&lt; "\n";
+    
+    for (size_t i=0; i&lt;datumVector.size(); ++i) {
+        log &lt;&lt; "   " &lt;&lt; datumVector[i].datum() &lt;&lt; "\n";
+    }
+}
+
+DEFINE_ART_MODULE(artex::MyDatumReader);
+
+</pre>             </td>           </tr>                </tbody>     </table>   </div> </body> </html>

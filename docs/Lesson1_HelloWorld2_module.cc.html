@@ -1,0 +1,124 @@
+<!DOCTYPE html> <html> <head>   <title>Lesson1/HelloWorld2_module.cc</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link href="css/prettify.css" type="text/css" rel="stylesheet" />   <link rel="stylesheet" media="all" href="css/docco.css" />   <script type="text/javascript" src="js/prettify.js"></script> </head> <body onload="prettyPrint()">   <div id="container">     <div id="background"></div>     <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h2>               <a href="../Lesson1/HelloWorld2_module.cc">Lesson1/HelloWorld2_module.cc</a>             </h2>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <p>The <code>HelloWorld2</code> ART module </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>Another simple ART module that handles a configuration parameter and prints a message for each event </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>See <code>HelloWorld1</code> for more basic information </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>The skeleton of this code was generated with  <pre>artmod analyzer artex::HelloWorld2</pre> (see <a href="https://cdcvs.fnal.gov/redmine/projects/g-2/wiki/Artmod">here</a> for information about <code>artmod</code> ) </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <h3>Main code </h3>
+
+             </td>             <td class="code">               <pre class="prettyprint">
+</pre>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>Include needed ART headers </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">#include "art/Framework/Core/EDAnalyzer.h"
+#include "art/Framework/Core/ModuleMacros.h"
+
+</pre>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>Here is a differnet way to handle the namespace (compare to <code>HelloWorld1_module.cc</code>) </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">namespace artex {
+  class HelloWorld2;
+}
+
+</pre>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <h3>Class declaration </h3>
+
+             </td>             <td class="code">               <pre class="prettyprint">class artex::HelloWorld2 : public art::EDAnalyzer {
+
+public:
+
+</pre>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <p>Constructor and destructor </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">  explicit HelloWorld2(fhicl::ParameterSet const &p);
+  virtual ~HelloWorld2();
+
+</pre>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <h4>Member function declaration </h4>
+
+             </td>             <td class="code">               <pre class="prettyprint">    
+</pre>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <p><code>beginJob</code> runs when the ART job starts   </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">  virtual void beginJob();
+    
+</pre>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <p><code>beginRun</code> runs when ART advances into a new run   </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">  virtual void beginRun(art::Run const &run);
+    
+</pre>             </td>           </tr>                               <tr id="section-13">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>               <p><code>analyze</code> runs for every event   </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">  virtual void analyze(art::Event const &e);
+    
+</pre>             </td>           </tr>                               <tr id="section-14">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-14">&#182;</a>               </div>               <p><code>endJob</code> runs at the end of the ART job </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">  virtual void endJob();
+    
+</pre>             </td>           </tr>                               <tr id="section-15">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-15">&#182;</a>               </div>               <h4>Member data </h4>
+
+             </td>             <td class="code">               <pre class="prettyprint">private:
+
+</pre>             </td>           </tr>                               <tr id="section-16">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-16">&#182;</a>               </div>               <p>This ART module will hold a configuration parameter, <code>magicNumber</code>. In real life,  one would use such a value as input to some algorithm or something like that </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">  int m_magicNumber;
+
+
+</pre>             </td>           </tr>                               <tr id="section-17">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-17">&#182;</a>               </div>               <p>End the class declaration </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">};
+
+</pre>             </td>           </tr>                               <tr id="section-18">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-18">&#182;</a>               </div>               <p>Definition of the constructor. Note the contructor is passed in the configuration parameter set for this module (parameters are set in the <code>.fcl</code> file. Note the use of the colon to  initialize the one member datum of the class ( <code>m_magicNumber</code> ). The configuration parameter set, <code>fhicl::ParameterSet</code>, is passed in as a <code>const</code> reference as the <code>p</code> argument. <code>fhicl::ParameterSet</code> has  a templated member function, <code>get&lt;&gt;</code>, that is used to retrieve parameter values. The template argument is the type of the value, <code>int</code> in this case. The function argument is the name of the parameter in the <code>.fcl</code> file.  </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">artex::HelloWorld2::HelloWorld2(fhicl::ParameterSet const &p) :
+  m_magicNumber(p.get&lt;int&gt;("magicNumber")) 
+{
+</pre>             </td>           </tr>                               <tr id="section-19">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-19">&#182;</a>               </div>               <p>Let&#8217;s print out a little message on construction </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">  mf::LogVerbatim("test") &lt;&lt; "HelloWorld2::constructor - "
+                          &lt;&lt; "Magic number is " &lt;&lt; m_magicNumber
+                          &lt;&lt; std::endl;
+}
+
+</pre>             </td>           </tr>                               <tr id="section-20">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-20">&#182;</a>               </div>               <p>Definition of the destructor. We don&#8217;t do anything here, but you would use this to clean up dynamically allocated memory and other resources. </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">artex::HelloWorld2::~HelloWorld2() {}
+
+</pre>             </td>           </tr>                               <tr id="section-21">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-21">&#182;</a>               </div>               <p>Definition of <code>beginJob</code>. Note that we print the module parameter that we stored </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">void artex::HelloWorld2::beginJob(){
+  mf::LogVerbatim("test") &lt;&lt; "HelloWorld2::beginJob - "
+                          &lt;&lt; "Magic number is " &lt;&lt; m_magicNumber
+                          &lt;&lt; std::endl;
+}
+
+</pre>             </td>           </tr>                               <tr id="section-22">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-22">&#182;</a>               </div>               <p>Definition of <code>beginRun</code> </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">void artex::HelloWorld2::beginRun(art::Run const& run){
+  mf::LogVerbatim("test") &lt;&lt; "HelloWorld2::beginRun -"
+                          &lt;&lt; " Run info is " &lt;&lt; run.id().run()
+                          &lt;&lt; " Magic number is " &lt;&lt; m_magicNumber
+                          &lt;&lt; std::endl;
+}
+
+</pre>             </td>           </tr>                               <tr id="section-23">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-23">&#182;</a>               </div>               <p>Definition of <code>analyze</code> </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">void artex::HelloWorld2::analyze(art::Event const &e) {
+  mf::LogVerbatim("test") &lt;&lt; "HelloWorld2::analyze -"
+                          &lt;&lt; " Event info is " &lt;&lt; e.id()
+                          &lt;&lt; " Magic number is " &lt;&lt; m_magicNumber
+                          &lt;&lt; std::endl;
+
+}
+
+</pre>             </td>           </tr>                               <tr id="section-24">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-24">&#182;</a>               </div>               <p>Definition of <code>endJob</code> </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">void artex::HelloWorld2::endJob(){
+  mf::LogVerbatim("test") &lt;&lt; "HelloWorld2::endJob - "
+                          &lt;&lt; "Magic number is " &lt;&lt; m_magicNumber
+                          &lt;&lt; std::endl;
+}
+
+</pre>             </td>           </tr>                               <tr id="section-25">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-25">&#182;</a>               </div>               <p>Some boiler plate for the Art system. Note that the namespace is handled differently here than in <code>HelloWorld1</code> </p>
+
+             </td>             <td class="code">               <pre class="prettyprint">DEFINE_ART_MODULE(artex::HelloWorld2);
+</pre>             </td>           </tr>                </tbody>     </table>   </div> </body> </html>
