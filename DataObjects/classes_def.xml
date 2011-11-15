@@ -8,6 +8,8 @@
 <!-- If the @MyLittleDatum@ class contained a non-primitive type, we would add a class line for it too. -->
 <!-- But in this case, @MyLittleDatum@ only contains a _float_, which is a primitive type -->
 
+<!-- Note that we cannot use any typdefs here -->
+
 <!-- h3. Main code -->
 
 <!-- Use the @lcgdict@ tag (this is a holdover from CMS) -->

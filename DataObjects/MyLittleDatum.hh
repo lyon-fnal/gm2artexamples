@@ -2,8 +2,9 @@
 
 // MyLittleDatum is a small example of creating, storing, and retrieving
 // a simple data object in ART. Note that there are no references to anything in ART itself
+// in this file.
 
-// Guards
+// Header guards
 #ifndef GM2ARTEXAMPLES_MYLITTLEDATUM_H
 #define GM2ARTEXAMPLES_MYLITTLEDATUM_H
 

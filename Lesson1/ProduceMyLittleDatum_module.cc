@@ -1,32 +1,42 @@
-////////////////////////////////////////////////////////////////////////
-// Class:       ProduceMyLittleDatum
-// Module Type: producer
-// File:        ProduceMyLittleDatum_module.cc
-//
-// Generated at Mon Sep 19 00:56:40 2011 by Adam Lyon using artmod
-// from art v0_07_13.
-////////////////////////////////////////////////////////////////////////
+// The @ProduceMyLittleDatum@ ART module
 
+// This ART module creates data (@MyLittleDatum@ objects) and puts them into the event.
+// This ART module is a *producer*
+
+// The skeleton of this code was generated with 
+// <pre>artmod producer artex::ProduceMyLittleDatum</pre>
+// (see "here":https://cdcvs.fnal.gov/redmine/projects/g-2/wiki/Artmod for information about @artmod@ )
+
+// h3. Main code
+
+// Include the needed ART headers
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 
+// Include the header for the data object (@artex::MyLittleDatumCollection@)
 #include "DataObjects/MyLittleDatumCollection.hh"
 
-using namespace std;
-
+// Set up the namespace
 namespace artex {
     class ProduceMyLittleDatum;
 }
 
+// h3. Class declaration
+// Since we are putting data into the event, we use a _producer_
 class artex::ProduceMyLittleDatum : public art::EDProducer {
+    
 public:
+    
+    // Constructor and destructor
     explicit ProduceMyLittleDatum(fhicl::ParameterSet const &p);
     virtual ~ProduceMyLittleDatum();
     
+    // The @produce@ member function is called on every event
     virtual void produce(art::Event &e);
     
 private:
-    // No member data here
+    
+    // End the class declaration
 };
 
 artex::ProduceMyLittleDatum::ProduceMyLittleDatum(fhicl::ParameterSet const &p)
@@ -36,7 +46,7 @@ artex::ProduceMyLittleDatum::ProduceMyLittleDatum(fhicl::ParameterSet const &p)
     // Call appropriate Produces<>() functions here.
     // Note that if you wanted to produce more than one of these in the same
     // event, give an 'instance name' in the arguments. 
-    produces< MyLittleDatumCollection >();
+    produces< artex::MyLittleDatumCollection >();
 }
 
 artex::ProduceMyLittleDatum::~ProduceMyLittleDatum() {
@@ -45,7 +55,7 @@ artex::ProduceMyLittleDatum::~ProduceMyLittleDatum() {
 
 void artex::ProduceMyLittleDatum::produce(art::Event &e) {
     //Create an empty data product
-    auto_ptr< MyLittleDatumCollection > datums(new MyLittleDatumCollection);
+    auto_ptr< artex::MyLittleDatumCollection > datums(new artex::MyLittleDatumCollection);
     
     // Fill it
     datums->push_back( MyLittleDatum(3.14) );

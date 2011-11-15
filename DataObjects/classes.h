@@ -26,4 +26,4 @@
 template class std::vector< artex::MyLittleDatum >;
 
 // Template the wrapper for the vector ( _typedef_ ok here)
-template class art::Wrapper< MyLittleDatumCollection >;
+template class art::Wrapper< artex::MyLittleDatumCollection >;
