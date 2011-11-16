@@ -53,7 +53,7 @@ artex::ProduceMyLittleDatum::ProduceMyLittleDatum(fhicl::ParameterSet const &p)
 artex::ProduceMyLittleDatum::~ProduceMyLittleDatum() {}
 
 // Definition of the @produce@ member function. Runs on each event. Note that we get a 
-// *nonconst* @art::Event@ reference. So we can change it by adding new data
+// _nonconst_ @art::Event@ reference. So we can change it by adding new data
 void artex::ProduceMyLittleDatum::produce(art::Event &e) {
     
     //Create an empty data product (in this case a @artex::MyLittleDatumCollection@
