@@ -53,11 +53,11 @@ void artex::MyDatumReader::analyze(art::Event const &e) {
 
     // Retrieving data from the event requires (at least) three steps. Here they are...
     
-    // 1. Create a templated @art::Handle@ that will hold a "pointer" to the data in the event (_pointer_ is 
+    // 1. Create a templated @art::Handle@ that will hold a "pointer" to the data in the event ( _pointer_ is 
     // in quotes because the Handle is more complicated, but we will use it like a pointer)
     art::Handle< artex::MyLittleDatumCollection > datumHandle;
     
-    // 2. Load the handle from the data in the event. We use the Event's @getByLabel@ member function. 
+    // 2. Load the handle with the data in the event. We use the Event's @getByLabel@ member function. 
     // You supply the _label_ and the handle of the data you want to load. The _label_ is the label of the 
     // producer that created the data in the producer @.fcl@ file. In this case, it is @makeDatumB@ -- see the @makeDatum.fcl@
     // file. Calling @getByLabel@ will fill the @datumHandle@
@@ -81,5 +81,5 @@ void artex::MyDatumReader::analyze(art::Event const &e) {
     // End the @analyze@ member function
 }
 
-// Usual boiler plate
+// Usual boilerplate
 DEFINE_ART_MODULE(artex::MyDatumReader);

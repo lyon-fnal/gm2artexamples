@@ -13,7 +13,7 @@
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 
-// Include the header for the data object (@artex::MyLittleDatumCollection@)
+// Include the header for the data object ( @artex::MyLittleDatumCollection@)
 #include "DataObjects/MyLittleDatumCollection.hh"
 
 // Set up the namespace
@@ -39,25 +39,28 @@ private:
     // End the class declaration
 };
 
+// The constructor
 artex::ProduceMyLittleDatum::ProduceMyLittleDatum(fhicl::ParameterSet const &p)
-// :
-// Initialize member data here.
 {
-    // Call appropriate Produces<>() functions here.
-    // Note that if you wanted to produce more than one of these in the same
-    // event, give an 'instance name' in the arguments. 
+    // Every object we want to put into the event must have a 
+    // @produces@ call like the one below
     produces< artex::MyLittleDatumCollection >();
 }
 
-artex::ProduceMyLittleDatum::~ProduceMyLittleDatum() {
-    // Clean up dynamic memory and other resources here.
-}
+// The destructor. In here is where you would deallocated any resources
+// you needed to produce the data (e.g. random number generators).
+// In our case here, there's nothing for the destructor to do
+artex::ProduceMyLittleDatum::~ProduceMyLittleDatum() {}
 
+// Definition of the @produce@ member function. Runs on each event. Note that we get a 
+// *non-const* @art::Event@ reference. So we can change it by adding new data
 void artex::ProduceMyLittleDatum::produce(art::Event &e) {
-    //Create an empty data product
+    
+    //Create an empty data product (in this case a @artex::MyLittleDatumCollection@
     auto_ptr< artex::MyLittleDatumCollection > datums(new artex::MyLittleDatumCollection);
     
-    // Fill it
+    // Fill it with some bogus values. We'll put four values in the vector (e.g. like having
+    // four hits)
     datums->push_back( MyLittleDatum(3.14) );
     datums->push_back( MyLittleDatum(1.15) );
     datums->push_back( MyLittleDatum(2.93) );
@@ -67,7 +70,10 @@ void artex::ProduceMyLittleDatum::produce(art::Event &e) {
     e.put( datums );    
     
     // Let's write a little log message
-    mf::LogVerbatim("test") << "Wrote datum for event " << e.id();
+    mf::LogVerbatim("test") << "Wrote data for event " << e.id();
+    
+    // End the @produce@ member function
 }
 
+// The regular boilerplate
 DEFINE_ART_MODULE(artex::ProduceMyLittleDatum);
