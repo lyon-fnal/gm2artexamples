@@ -1,8 +1,10 @@
-# !!! Note the list of FCL files. If you make a new FCL file in this directory,
-#     you must add it to this list. If you don't, it will be ignored.
-#
+# This CMakeLists.txt file handles the fcl configuration files. 
+# All that it really does is copy them to the build and release areas
+# (but that's important!). 
 
-# !!! Add new fcl files to the bottom of this list
+# *IMPORTANT* The list of FCL files to handle is below. You *must* put a new
+# file in this list. If you don't, it will not appear in the build area
+# nor in the release area. 
 set( fcl_files
         messageservice.fcl
         minimalMessageService.fcl
@@ -14,8 +16,7 @@ set( fcl_files
         readHits.fcl
 )
 
-# install all *.fcl files in this directory
-# Let's automatically find all of the fcl files in this directory
+# Install the files in the list to the release area
 install( FILES ${fcl_files}
          DESTINATION ${product}/${version}/${PROJECT_NAME}/fcl )
 

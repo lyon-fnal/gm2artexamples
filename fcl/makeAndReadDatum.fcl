@@ -1,12 +1,12 @@
-# FCL configuration for running the @ProduceMyLittleDatum@ module, 
-# which is a _producer_
+# FCL configuration for producing data, reading it with an
+# analyzer, and writing that data out to a file
 
 # The below is necessary boilerplate to load the messaging (logging) service
 #include "minimalMessageService.fcl"
 services.message: @local::default_message
 
 # The name of this job (or process)
-process_name:processA
+process_name:makeAndRead
 
 # Definition of the input source. In this case, we tell ART
 # to make two empty events. 
@@ -22,7 +22,7 @@ outputs: {
   # @out1@ is a label for the module outputting to @data01.root@
   out1: {
     module_type: RootOutput   
-    fileName: "data01.root"
+    fileName: "data01.root"  
   }
 }
 
@@ -43,20 +43,30 @@ physics: {
     # End the producers section
   }
 
-  # Define the analysis path. Here, we want to run our producer
-  path1: [ makeDatumB ]
- 
+  # List of the _analyzers_ we want to run
+  analyzers: {
+    hello: {
+      module_type: MyDatumReader
+    }
+  }
+
+
+  # Define the analysis path of producers
+  pathMake: [ makeDatumB ]
+
+  # Define the analysis path of analyzers
+  pathRead: [ hello ]
+
   # Define the output streams. Here, we want to output using the module defined
   # in @out1@
   stream1:  [ out1 ]
- 
-  # The trigger path defines what path of producers we want to run
-  trigger_paths: [ path1 ]
 
-  # Usually, the path with analyzers goes into the @end_paths@. But we do not have
-  # an analyzer, we only have an output stream. That goes into the end_paths list
-  # so it will trigger the producer in @trigger_paths@
-  end_paths: [ stream1 ]
+  # The trigger path defines what path of producers we want to run
+  trigger_paths: [ pathMake ]
+
+  # Usually, the path with analyzers goes into the @end_paths@. We also 
+  # include the output stream so that it will get run and write events to the file.
+  end_paths: [ pathRead, stream1 ]
 
   # End the physics section
 }

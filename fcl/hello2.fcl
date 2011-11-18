@@ -1,25 +1,51 @@
-#
-# The first example of running art: how to run one module.
-#
+# FCL configuration for running the @HelloWorld2@ module with 
+# a configuration parameter
+
+# The below is necessary boilerplate to load the messaging (logging) service
 #include "minimalMessageService.fcl"
 services.message: @local::default_message
 
+# The name of this job (or process)
 process_name: helloWorld2
 
+# Definition of the input source. In this case, we tell ART
+# to make two empty events. 
 source: {
   module_type: EmptyEvent
   maxEvents:  2
 }
 
+# The @physics@ section describes the configuration of our ART modules
 physics: {
+
+  # List the analyzers we want to run in the @analyzers@ block
   analyzers: {
+
+    # Each item in the list is a _label_ and then the name of the module 
+    # (analyzer in this case). The label is very important as that is how we refer to this analyzer 
+    # later in the file
     hello2: {
-            module_type: HelloWorld2
-            magicNumber: 42
+      module_type: HelloWorld2
+
+      # And here is the configuration parameter for this module
+      # The code for @HelloWorld2@ has a corresponding call 
+      # <pre>p.get<int>("magicNumber")</pre>
+      # to access this value
+      magicNumber: 42
+
+      # End the hello2 definition    
     }
+
+    # End the analyzers section
   }
 
+  # Define the analysis path. Each path is a list of modules that  
+  # we want to run. In this case, there is only one module. Note that 
+  # we refer to it by its *label*
   path1: [ hello2 ]
-    end_paths: [ path1 ]
 
+  # We now list the paths that we want to run. There is only one path.
+  end_paths: [ path1 ]
+
+  # End the physics section
 }
