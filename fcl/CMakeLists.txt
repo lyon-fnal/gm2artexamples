@@ -2,7 +2,7 @@
 # All that it really does is copy them to the build and release areas
 # (but that's important!). 
 
-# *IMPORTANT* The list of FCL files to handle is below. You *must* put a new
+# Note: *IMPORTANT* The list of FCL files to handle is below. You *must* put a new
 # file in this list. If you don't, it will not appear in the build area
 # nor in the release area. 
 set( fcl_files
