@@ -23,7 +23,7 @@ namespace artex {
     class MyDatumReader;
 }
 
-// h3. Class declarationa
+// h3. Class declaration
 // Since we are reading the data, we use an _analyzer_
 class artex::MyDatumReader : public art::EDAnalyzer {
     
