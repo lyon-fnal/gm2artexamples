@@ -44,7 +44,7 @@ namespace artex {
     void analyze(const art::Event& event );
       
     // Declare the destructor (as virtual in case someone inherits from this object)
-    virtual void ~HelloWorld1();
+    virtual ~HelloWorld1();
       
     // End the class declaration
   };
