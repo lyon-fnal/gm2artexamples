@@ -14,6 +14,8 @@
 // Include needed ART headers
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"
+#include "art/Framework/Principal/Event.h"
+#include "art/Framework/Principal/Run.h"
 
 // Here is a differnet way to handle the namespace (compare to @HelloWorld1_module.cc@)
 namespace artex {
