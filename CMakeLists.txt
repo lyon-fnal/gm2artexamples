@@ -116,7 +116,12 @@ include_directories( $ENV{LIBSIGCPP_LIB}/sigc++-2.0/include )
 include_directories( $ENV{CLHEP_INC} )
 find_ups_product( cpp0x $ENV{CPP0X_VERSION} )
 find_ups_root( $ENV{ROOT_VERSION} )
-find_ups_boost( $ENV{BOOST_VERSION} )
+find_ups_boost( v1_47_0 filesystem
+                        program_options
+                        regex
+                        thread
+                        unit_test_framework
+)
 
 ## --> You may have to add additional dependency checks here 
 ## like @find_ups_geant4( $ENV{GEANT4_VERSION} )@
@@ -145,15 +150,20 @@ include(ArtDictionary)
 # Include the packaging utility
 include(UseCPack)
 
+# Test scripts and stuff will be placed in the build/bin area. Since this product doesn't
+# normally have a bin area (it makes a library), we need to create one here
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
+
 # --> You have to tell Cmake about *EVERY* subdirectory that contains 
 # directories or files to build. If you don't, cmake will ignore those subdirectories
 # and you will be sad. The order does not really matter (but it is the order of building, which
 # should not really matter because CMake will figure out the dependencies)
-subdirs(ups)
-subdirs(fcl)
-subdirs(Lesson1)
-subdirs(DataObjects)
-subdirs(HitAndTrackObjects)
-subdirs(Lesson2)
+add_subdirectory(ups)
+add_subdirectory(fcl)
+add_subdirectory(Lesson1)
+add_subdirectory(DataObjects)
+add_subdirectory(HitAndTrackObjects)
+add_subdirectory(Lesson2)
+add_subdirectory(test)
 
 
