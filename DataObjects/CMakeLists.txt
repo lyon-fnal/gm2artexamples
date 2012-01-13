@@ -1,5 +1,5 @@
 # Remember that every directory that has something to build or copy to the build area needs a @CMakeLists.txt@ file
-# and must also appear as a @subdirs@ call in the parent directory's @CMakeLists.txt@ file. 
+# and must also appear as a @add_subdirectory@ call in the parent directory's @CMakeLists.txt@ file. 
 
 # h3. Main code
 
