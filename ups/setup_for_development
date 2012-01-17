@@ -75,7 +75,7 @@ echo
 echo LD_LIBRARY_PATH is now ${LD_LIBRARY_PATH}
 
 ## Setup FHICL_FILE_PATH
-tnotnull GM2ARTEXAMPLES_BUILD && setenv FHICL_FILE_PATH `echo :${FHICL_FILE_PATH}: | sed -e "s|:${GM2ARTEXAMPLES_BUILD}/lib:|:|" -e 's|^:||;s|:$||'`; setenv FHICL_FILE_PATH ${GM2ARTEXAMPLES_BUILD}/fcl:${FHICL_FILE_PATH}
+tnotnull GM2ARTEXAMPLES_BUILD && setenv FHICL_FILE_PATH `echo :${FHICL_FILE_PATH}: | sed -e "s|:${GM2ARTEXAMPLES_BUILD}/lib:|:|" -e 's|^:||;s|:$||'`; setenv FHICL_FILE_PATH ".":${GM2ARTEXAMPLES_BUILD}/fcl:${FHICL_FILE_PATH}
 echo FHICL_FILE_PATH is now ${FHICL_FILE_PATH}
 
 
