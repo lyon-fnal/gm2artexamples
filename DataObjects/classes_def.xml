@@ -18,6 +18,9 @@
     <!-- The contents of the vector, our @MyLittleDatum@ object -->
     <class name="artex::MyLittleDatum"/>  
     
+    <!-- Wrapper of the individual item (for testing only) -->
+    <class name="art::Wrapper< artex::MyLittleDatum >" />
+    
     <!-- The vector we wish to store -->
     <class name="std::vector< artex::MyLittleDatum >"/>
     

@@ -22,6 +22,9 @@
 // Include our @MyLittleDatumCollection@ header
 #include "DataObjects/MyLittleDatumCollection.hh"
 
+// Template the wrapper for the individual object (used in testing)
+template class art::Wrapper< artex::MyLittleDatum >;
+
 // Template the vector (do not use the _typedef_) here)
 template class std::vector< artex::MyLittleDatum >;
 
