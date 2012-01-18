@@ -9,6 +9,8 @@ include(CetTest)
 # Link with the data objects library
 link_libraries( gm2artexamples_dataobjects )
 
+# h2. Unit tests
+
 # Test a little test script
 cet_test( very_simple_test.sh PREBUILT )
 
@@ -18,8 +20,8 @@ cet_test( simple_test )
 # Test with BOOST UTF (unit test facility)
 cet_test( test_with_boost USE_BOOST_UNIT )
 
-# -- Integration tests --
-#
+# h3. Integration tests
+
 # Let's make a very simple integration test for the MyLittleDatum object by running ART with real 
 # modules
 
