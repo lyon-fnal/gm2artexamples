@@ -9,7 +9,7 @@ include(CetTest)
 # Link with the data objects library
 link_libraries( gm2artexamples_dataobjects )
 
-# h2. Unit tests
+# h3. Unit tests
 
 # Test a little test script
 cet_test( very_simple_test.sh PREBUILT )
