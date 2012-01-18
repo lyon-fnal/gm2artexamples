@@ -37,7 +37,7 @@ physics: {
         # because we will use it when we want to retrieve data from the event (see
         # @Lesson1/MyDatumReader_module.cc@ )
         mldTestA: {
-            module_type: ProduceMyLittleDatum
+            module_type: MyLittleDatumProducer
         }
 
     # End the producers section

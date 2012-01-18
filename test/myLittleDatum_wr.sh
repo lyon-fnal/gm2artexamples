@@ -8,7 +8,7 @@
 rm -f data01.root cerr.log warnings.log
 
 # Set the ART command we want to use
-export ART_EXEC=gm2_ut
+export ART_EXEC=gm2
 
 # Run the producer that will make the file
 run_art MyLittleDatum_w.fcl --rethrow-all
@@ -17,4 +17,5 @@ run_art MyLittleDatum_w.fcl --rethrow-all
 check_files "data01.root"
 
 # Run the analyzer -- this has BOOST tests in it, so we need gm2_ut
+export ART_EXEC=gm2_ut
 run_art MyLittleDatum_r.fcl --rethrow-all
