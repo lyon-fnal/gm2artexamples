@@ -1,5 +1,5 @@
 // Do a simple test with boost tools.
-// See "here":http://www.boost.org/doc/libs/1_48_0/libs/test/doc/html/utf.html for more information
+// See "here":http://www.boost.org/doc/libs/1_48_0/libs/test/doc/html/utf.html for more information about the BOOST UTF system.
 
 // Define the test module to Boost and load the utf header
 #define BOOST_TEST_MODULE (test_with_boost)

@@ -21,7 +21,7 @@ namespace artex {
     private:
         
         // We'll just have one data member, a simple float
-        float m_datum;  
+        float m_datum;
         
     public:
         
