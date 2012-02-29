@@ -1,5 +1,7 @@
 #  This file is the main CMakeLists.txt file for the @gm2artexamples@ package. 
 
+# h2. Introduction 
+
 #  Before running cmake, you must ensure that all external
 #  packages are set up already (e.g. source all necessary setup
 #  files, including the appropriate @setup_for_development@ script).
@@ -7,17 +9,19 @@
 #  When you run cmake, you must run it from the build directory.
 #  e.g. @cmake ../src@
 
-#  You typically only have to make minor changes to this file. The 
+#  If you are copying this project to use as a template for a new project, you will need to make some minor changes. The 
 #  areas where you would have to do so are marked with -->
 
 #  This most important place where you would have to add to this file
 #  is at the bottom.
 
-# h3. Main code
+# h2. Main code
 
 
 # Ensure we are using a moden version of CMake
-CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
+
+# h3. Project definition
 
 # --> Define the name of this project (replace @gm2artexamples@ with your 
 # project name - use all lowercase)
@@ -32,51 +36,30 @@ execute_process(COMMAND git-version-gen.sh
                 WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
                 OUTPUT_VARIABLE version
                 OUTPUT_STRIP_TRAILING_WHITESPACE)
+                
+# h3. Load build system modules
 
-# --> If you want a qualifier (typically not) then add it here
-SET (qualifier "")
-
-# Load in some Cmake helper modules - some gymnastics follow
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/Modules)
-
-# We use CMake modules from the @CETBUILDTOOLS@ area
+# cetbuildtools contains our cmake modules
 SET ( CETBUILDTOOLS_VERSION $ENV{CETBUILDTOOLS_VERSION} )
 IF (NOT CETBUILDTOOLS_VERSION)
     MESSAGE (FATAL_ERROR "ERROR: setup cetbuildtools to get the cmake modules")
 ENDIF()
-set(CMAKE_MODULE_PATH "${CMAKE_ROOT}/Modules")
-set(CMAKE_MODULE_PATH $ENV{CETBUILDTOOLS_DIR}/Modules $ENV{ART_FQ_DIR}/Modules ${CMAKE_MODULE_PATH})
-message(STATUS "module path is ${CMAKE_MODULE_PATH}" )
 
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/Modules 
+                      $ENV{CETBUILDTOOLS_DIR}/Modules 
+                      $ENV{ART_OPENMP_DIR}/Modules 
+                      ${CMAKE_MODULE_PATH})
 
-# Set the install prefix from the environment variable (typically set in the local setup script)
-#IF ($ENV{CMAKE_INSTALL_PREFIX} )
-  SET ( CMAKE_INSTALL_PREFIX $ENV{CMAKE_INSTALL_PREFIX} )
-#ENDIF($ENV{CMAKE_INSTALL_PREFIX} )
+include(CetCMakeEnv)
 
-message(STATUS "Install prefix is ${CMAKE_INSTALL_PREFIX}")
+# h3. Configure version
 
-# Because we want to move these libraries about,
-# do not embed full path in shared libraries or executables
-set (CMAKE_SKIP_RPATH)
+if ( NOT qualifier )
+    message (FATAL_ERROR "ERROR: please call cmake with -Dqualifier:STRING=qualifier")
+endif ( NOT qualifier )
+cet_cmake_env( gm2artexamples v0_00_01 ${qualifier} )
 
-# Make sure we know where gcc is and require it
-set( GCC_VERSION $ENV{GCC_VERSION} )
-if ( NOT GCC_VERSION )
-  message(FATAL_ERROR "Can't locate GCC_VERSION, required for building ToyCmake")
-endif ()
-
-## Load some external cmake modules that we'll use later
-include (FindUpsPackage)
-include(FindUpsBoost)
-include(FindUpsRoot)
-include( SetFlavorQual )
-include(ParseUpsVersion)
-include(EnsureOutOfSourceBuild)
-include(CetMake)
-
-## Make sure someone isn't typing cmake in the source code tree
-cet_ensure_out_of_source_build()
+cet_report_compiler_flags()
 
 ## Set the ups version
 message(STATUS ${version})
@@ -88,6 +71,8 @@ set_flavor_qual()
 message(STATUS "version will be ${version}")
 message(STATUS "qualifier will be ${qualifier}")
 message(STATUS "flavor will be ${UPSFLAVOR}")
+
+# h3. Declare dependencies 
 
 # Use cmake directive include_directories to define include search path
 
@@ -153,6 +138,8 @@ include(UseCPack)
 # Test scripts and stuff will be placed in the build/bin area. Since this product doesn't
 # normally have a bin area (it makes a library), we need to create one here
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
+
+# h3. Specify subdirectories to build
 
 # --> You have to tell Cmake about *EVERY* subdirectory that contains 
 # directories or files to build. If you don't, cmake will ignore those subdirectories

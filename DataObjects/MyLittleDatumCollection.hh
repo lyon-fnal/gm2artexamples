@@ -1,7 +1,11 @@
 // Implementation of the @MyLittleDatumCollection@ _typedef_
 
+// You will typically store more than one instance of an object in the event. For example, you have a @Hit@ object that holds one hit. But in reality, the event will have one or more hits. So what you will store into the event is a @vector@ of @Hit@ objects. This @typedef@ makes it easier to refer to the vector. 
+
 #ifndef GM2ARTEXAMPLES_MYLITTLEDATUMCOLLECTION_HH
 #define GM2ARTEXAMPLES_MYLITTLEDATUMCOLLECTION_HH
+
+// Necessary includes
 
 #include <vector>
 #include "DataObjects/MyLittleDatum.hh"
@@ -15,3 +19,5 @@ namespace artex {
 }
 
 #endif
+
+// If you are following the tutorial, go to the &l=DataObjects/classes.h& file next.
