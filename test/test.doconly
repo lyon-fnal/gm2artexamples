@@ -1,0 +1,20 @@
+/css/codeDocifyDoc.css
+h1. Testing 
+
+bq. Adam Lyon, FNAL SCD<br />
+February 2012<br />
+Revision: &rev&
+
+h2. How to do testing in Art
+
+Art provides a very flexible testing framework allowing for various types of unit and integration tests. For example, you can do the following:
+
+* Write a stand-alone C++ program that performs unit tests and sets an exit code (0 passes)
+
+* Write units tests using the BOOST Unit Test Facility (UTF)
+
+* Write integration tests that run a script which returns an exit code
+
+* Write integration tests that run Art itself with special unit tests modules
+
+The best way to get started is to look at the &l=test/CMakeLists.txt& file.

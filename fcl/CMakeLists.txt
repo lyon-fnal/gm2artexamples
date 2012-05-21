@@ -11,6 +11,7 @@ set( fcl_files
         hello1.fcl
         hello2.fcl
         makeDatum.fcl
+        makeAndReadDatum.fcl
         readDatum.fcl
         makeHits.fcl
         readHits.fcl

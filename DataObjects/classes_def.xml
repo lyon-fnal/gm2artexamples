@@ -4,7 +4,7 @@
 <!-- So in this case, we -->
 <!-- * Start with @art::Wrapper&lt; vector of MyLittleDatum &gt;@ -->
 <!-- * Then the vector itself -->
-<!-- * Then what's in the vector (in this case the @MyLittleDatum@ class) -->
+<!-- * Then what is in the vector (in this case the @MyLittleDatum@ class) -->
 <!-- If the @MyLittleDatum@ class contained a non-primitive type, we would add a class line for it too. -->
 <!-- But in this case, @MyLittleDatum@ only contains a _float_, which is a primitive type -->
 
@@ -17,12 +17,14 @@
 
     <!-- The contents of the vector, our @MyLittleDatum@ object -->
     <class name="artex::MyLittleDatum"/>  
-    
+        
     <!-- The vector we wish to store -->
     <class name="std::vector< artex::MyLittleDatum >"/>
     
     <!-- The wrapper of the vector -->
-    <class name="art::Wrapper< std::vector< artex::MyLittleDatum > >"/>
+    <class name="art::Wrapper< std::vector< artex::MyLittleDatum > >" />
     
 <!-- Close the tag -->    
 </lcgdict>
+
+<!-- If you are following the tutorial, then you are done with the @DataObjects@ directory. Use your back button to get back to the slide and advance to the next slide. -->

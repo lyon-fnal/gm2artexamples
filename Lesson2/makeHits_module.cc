@@ -21,6 +21,7 @@
 
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"
+#include "art/Framework/Principal/Event.h"
 
 // Include the header to our Hit objects
 #include "HitAndTrackObjects/HitCollection.hh"

@@ -12,6 +12,7 @@
 // Include the needed ART headers
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"
+#include "art/Framework/Principal/Event.h"
 
 // Include the header for the data object ( @artex::MyLittleDatumCollection@)
 #include "DataObjects/MyLittleDatumCollection.hh"
@@ -57,7 +58,7 @@ artex::ProduceMyLittleDatum::~ProduceMyLittleDatum() {}
 void artex::ProduceMyLittleDatum::produce(art::Event &e) {
     
     //Create an empty data product (in this case a @artex::MyLittleDatumCollection@
-    auto_ptr< artex::MyLittleDatumCollection > datums(new artex::MyLittleDatumCollection);
+    std::auto_ptr< artex::MyLittleDatumCollection > datums(new artex::MyLittleDatumCollection);
     
     // Fill it with some bogus values. We'll put four values in the vector (e.g. like having
     // four hits)

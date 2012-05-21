@@ -1,0 +1,32 @@
+# FCL configuration for running the @MyDatumReader@ module by
+# reading in the data from the @data01.root@ file created by running
+# @makeDatum.fcl@
+
+# The below is necessary boilerplate to load the messaging (logging) service
+#include "minimalMessageService.fcl"
+services.message: @local::default_message
+
+services.scheduler.Rethrow: [ ProductNotFound ]
+
+# The name of this job (or process)
+process_name: MyLittleDatumR
+
+# Definition of the input source, which is the @data01.root@ file
+source: {
+    module_type: RootInput
+    maxEvents:  -1  # Read all events
+    fileNames: [ "data01.root" ]
+}
+
+# The @physics@ section describes the configuration of our ART modules
+# See @hello2.fcl@ for more information on the below 
+physics: {
+    analyzers: {
+        hello: {  # Note that label name can be anything
+            module_type: MyLittleDatumAnalyzer
+            input_label: mldTestA
+        }
+    }
+    path1: [ hello ]
+    end_paths: [ path1 ]
+}

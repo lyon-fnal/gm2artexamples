@@ -21,7 +21,7 @@ namespace artex {
     private:
         
         // We'll just have one data member, a simple float
-        float m_datum;  
+        float m_datum;
         
     public:
         
@@ -54,4 +54,7 @@ namespace artex {
 // End of namespace    
 }
 
+// End of the header guard
 #endif
+
+// If you are following the tutorial, you should go to the &l=DataObjects/MyLittleDatum.cc& file next (the implementation file of this class). 
