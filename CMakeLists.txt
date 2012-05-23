@@ -46,11 +46,17 @@ IF (NOT CETBUILDTOOLS_VERSION)
 ENDIF()
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/Modules 
+                      $ENV{GM2SOFTWARETOOLS_DIR}/Modules
+                      $ENV{ART_DIR}/
                       $ENV{CETBUILDTOOLS_DIR}/Modules 
-                      $ENV{ART_OPENMP_DIR}/Modules 
                       ${CMAKE_MODULE_PATH})
 
 include(CetCMakeEnv)
+
+include(Gm2CMakeEnv)
+
+include(CetMake)
+include(CetTest)
 
 # h3. Configure version
 
@@ -90,24 +96,8 @@ include_directories ("${PROJECT_SOURCE_DIR}")
 include_directories ("${PROJECT_BINARY_DIR}")
 
 # Check for dependencies
-find_ups_product( gccxml $ENV{GCCXML_VERSION} )
-find_ups_product( art $ENV{ART_VERSION} )
-find_ups_product (messagefacility $ENV{MESSAGEFACILITY_VERSION} )
-find_ups_product( fhiclcpp $ENV{FHICLCPP_VERSION}  )
-find_ups_product( cetlib $ENV{CETLIB_VERSION} )
-find_ups_product( libsigcpp $ENV{LIBSIGCPP_VERSION} )
-include_directories( $ENV{LIBSIGCPP_INC}/sigc++-2.0 )
-include_directories( $ENV{LIBSIGCPP_LIB}/sigc++-2.0/include )
-include_directories( $ENV{CLHEP_INC} )
-find_ups_product( cpp0x $ENV{CPP0X_VERSION} )
-find_ups_root( $ENV{ROOT_VERSION} )
-find_ups_boost( v1_47_0 filesystem
-                        program_options
-                        regex
-                        thread
-                        unit_test_framework
-)
-
+find_art_products ( )
+find_my_products ( ) 
 ## --> You may have to add additional dependency checks here 
 ## like @find_ups_geant4( $ENV{GEANT4_VERSION} )@
 
@@ -120,6 +110,10 @@ find_library( CLHEP  NAMES CLHEP   PATHS $ENV{CLHEP_BASE}/lib )
 
 # Define CETLIB
 find_library( CETLIB NAMES cetlib PATHS $ENV{CETLIB_LIB} )
+
+# Add some more includes
+include_directories ( $ENV{LIBSIGCPP_INC}/sigc++-2.0 )
+include_directories ( $ENV{LIBSIGCPP_LIB}/sigc++-2.0/include )
 
 # Building all libraries and binaries in a single lib and bin directory
 # is useful for a complex product like art.
