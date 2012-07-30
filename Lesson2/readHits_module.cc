@@ -134,4 +134,4 @@ void artex::readHits::analyze(art::Event const &e) {
     
 }
 
-DEFINE_ART_MODULE(artex::readHits);
+DEFINE_ART_MODULE(artex::readHits)

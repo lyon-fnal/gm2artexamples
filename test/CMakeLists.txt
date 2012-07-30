@@ -9,7 +9,7 @@ project( gm2artexamples_Tests )
 include(CetTest)
 
 # Link with the data objects library - we are going to test the objects in here
-link_libraries( gm2artexamples_dataobjects )
+link_libraries( gm2artexamples_DataObjects )
 
 # h3. Unit tests
 

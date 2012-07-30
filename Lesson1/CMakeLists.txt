@@ -9,12 +9,14 @@
 # * @dependentLibrary@ (optional) is either a particular library that your module depends on or a list of libraries
 # See below for examples
 
+art_make( LIBRARIES "gm2artexamples_DataObjects")
+
 # Two simple ART modules
-simple_plugin(HelloWorld1 "module")
-simple_plugin(HelloWorld2 "module")
+#simple_plugin(HelloWorld1 "module")
+#simple_plugin(HelloWorld2 "module")
 
 # Two more ART modules that depend on the classes from the @DataObjects@ directory 
 # (e.g. the @MyLittleDatum@ class). Note that the dependent library for @MyLittleDatum@ 
 # needs to be given (see the @CMakeLists.txt@ file in @DataObjects@ for the library name)
-simple_plugin(ProduceMyLittleDatum "module" "gm2artexamples_dataobjects")
-simple_plugin(MyDatumReader "module" "gm2artexamples_dataobjects")
+#simple_plugin(ProduceMyLittleDatum "module" "gm2artexamples_dataobjects")
+#simple_plugin(MyDatumReader "module" "gm2artexamples_dataobjects")

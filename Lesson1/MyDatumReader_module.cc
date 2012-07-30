@@ -43,7 +43,7 @@ private:
 };
 
 // Definition of the constructor which doesn't do anything
-artex::MyDatumReader::MyDatumReader(fhicl::ParameterSet const &p) {}
+artex::MyDatumReader::MyDatumReader(fhicl::ParameterSet const &) {}
 
 // Definition of the destructor which doesn't do anything
 artex::MyDatumReader::~MyDatumReader() {}
@@ -83,4 +83,4 @@ void artex::MyDatumReader::analyze(art::Event const &e) {
 }
 
 // Usual boilerplate
-DEFINE_ART_MODULE(artex::MyDatumReader);
+DEFINE_ART_MODULE(artex::MyDatumReader)

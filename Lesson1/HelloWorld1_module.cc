@@ -53,7 +53,7 @@ namespace artex {
   // h3. Class implementation
 
   // Definition for constructor (it doesn't do anything)
-  HelloWorld1::HelloWorld1(fhicl::ParameterSet const& pset){
+  HelloWorld1::HelloWorld1(fhicl::ParameterSet const& ){
   }
     
   // Definition of the destructor (does nothing)
@@ -79,4 +79,4 @@ namespace artex {
 
 // These are some necessary boilerplate for the ROOT persistency system
 using artex::HelloWorld1;
-DEFINE_ART_MODULE(HelloWorld1);
+DEFINE_ART_MODULE(HelloWorld1)

@@ -135,4 +135,4 @@ void artex::makeHits::endJob() {
 }
 
 
-DEFINE_ART_MODULE(artex::makeHits);
+DEFINE_ART_MODULE(artex::makeHits)

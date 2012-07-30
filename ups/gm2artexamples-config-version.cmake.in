@@ -5,3 +5,4 @@ if (NOT "${PACKAGE_FIND_VERSION}" VERSION GREATER "@version@")
     set (PACKAGE_VERSION_EXACT 1) #exact match to this version
   endif ()
 endif ()
+

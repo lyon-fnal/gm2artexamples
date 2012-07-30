@@ -6,9 +6,6 @@
 #  packages are set up already (e.g. source all necessary setup
 #  files, including the appropriate @setup_for_development@ script).
 
-#  When you run cmake, you must run it from the build directory.
-#  e.g. @cmake ../src@
-
 #  If you are copying this project to use as a template for a new project, you will need to make some minor changes. The 
 #  areas where you would have to do so are marked with -->
 
@@ -26,125 +23,96 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 # --> Define the name of this project (replace @gm2artexamples@ with your 
 # project name - use all lowercase)
 PROJECT (gm2artexamples)
-set (product gm2artexamples)
 
-message(STATUS "--- BUILDING ${product} FROM ${PROJECT_SOURCE_DIR} --- ")
-
-# Determine the version hash or tag from git. This calls
-# a script @git-version-gen.sh@ in @$GM2SOFTWARETOOLS_DIR/bin/@ ( @setup gm2@ puts it in your path)
-execute_process(COMMAND git-version-gen.sh
-                WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-                OUTPUT_VARIABLE version
-                OUTPUT_STRIP_TRAILING_WHITESPACE)
-                
 # h3. Load build system modules
 
 # cetbuildtools contains our cmake modules
-SET ( CETBUILDTOOLS_VERSION $ENV{CETBUILDTOOLS_VERSION} )
-IF (NOT CETBUILDTOOLS_VERSION)
-    MESSAGE (FATAL_ERROR "ERROR: setup cetbuildtools to get the cmake modules")
-ENDIF()
+set( CETBUILDTOOLS_VERSION $ENV{CETBUILDTOOLS_VERSION} )
+if( NOT CETBUILDTOOLS_VERSION )
+  message( FATAL_ERROR "ERROR: setup cetbuildtools to get the cmake modules" )
+endif()
+set( CMAKE_MODULE_PATH $ENV{CETBUILDTOOLS_DIR}/Modules ${CMAKE_MODULE_PATH} )
 
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/Modules 
-                      $ENV{GM2SOFTWARETOOLS_DIR}/Modules
-                      $ENV{ART_DIR}/
-                      $ENV{CETBUILDTOOLS_DIR}/Modules 
-                      ${CMAKE_MODULE_PATH})
+# Add any modules from this source necessary for building
+set(CMAKE_MODULE_PATH $ENV{GM2SOFTWARETOOLS_DIR}/Modules ${CMAKE_MODULE_PATH} )
 
+# Include the necessary macros
 include(CetCMakeEnv)
 
-include(Gm2CMakeEnv)
+# h3. Configure this product
 
-include(CetMake)
-include(CetTest)
+# Configure
+cet_cmake_env()
 
-# h3. Configure version
-
-if ( NOT qualifier )
-    message (FATAL_ERROR "ERROR: please call cmake with -Dqualifier:STRING=qualifier")
-endif ( NOT qualifier )
-cet_cmake_env( gm2artexamples v0_00_01 ${qualifier} )
-
+# Do the same compiler flag stuff as Art
+cet_set_compiler_flags(DIAGS VIGILANT WERROR EXTRA_FLAGS -pedantic)
+cet_have_qual( e2 )
+if ( ${CET_HAVE_QUAL} )
+  cet_add_compiler_flags(CXX -std=c++0x;-Wno-deprecated-declarations)
+endif()
 cet_report_compiler_flags()
 
-## Set the ups version
-message(STATUS ${version})
-set_version_from_ups( ${version} )
+# Locate some UPS areas (the versions are just minimum required) and setup include paths
+find_ups_product(cetbuildtools v2_01_03)
+find_ups_product(cpp0x v1_03_07)
+find_ups_product(libsigcpp v2_2_10)
+find_ups_product(cppunit v1_12_1)
+find_ups_product(clhep v2_1_2_2)
+find_ups_product(cetlib v1_03_07)
+find_ups_product(gccxml v0_9)
+find_ups_product(art v1_00_11)
+find_ups_product(fhiclcpp v2_16_00)
+find_ups_product(messagefacility v1_10_00)
+find_ups_root( v5_30_06 )
+find_ups_boost( v1_49_0 filesystem
+                        program_options
+                        regex
+                        thread
+                        unit_test_framework
+ )
 
-## Define the flavor (e.g. Linux x86_64)
-set_flavor_qual()
 
-message(STATUS "version will be ${version}")
-message(STATUS "qualifier will be ${qualifier}")
-message(STATUS "flavor will be ${UPSFLAVOR}")
+# Make sure we have gcc
+cet_check_gcc()
 
-# h3. Declare dependencies 
-
-# Use cmake directive include_directories to define include search path
-
-# We want to be able to #include "MyProduct/MyHeader.h" in source code,
-# generated code, and user code.
-# We achieve this by putting all headers into a MyProduct subdirectory
-# instead of an include subdirectory.
-# @PROJECT_SOURCE_DIR@ is a cmake variable which points to the top of the
-# source code tree.
-include_directories ("${PROJECT_SOURCE_DIR}")
-
-# Generated code will be created in the build directory,
-# so we also add PROJECT_BINARY_DIR to the include search path.
-# This step may be omitted if there are no generated headers.
-include_directories ("${PROJECT_BINARY_DIR}")
-
-# Check for dependencies
-find_art_products ( )
-find_my_products ( ) 
-## --> You may have to add additional dependency checks here 
-## like @find_ups_geant4( $ENV{GEANT4_VERSION} )@
-
-# Let cmake define variables for external libraries and executables
-#define FHICLCPP
-find_library( FHICLCPP NAMES fhiclcpp PATHS $ENV{FHICLCPP_LIB} )
-
-# Define CLHEP
-find_library( CLHEP  NAMES CLHEP   PATHS $ENV{CLHEP_BASE}/lib )
-
-# Define CETLIB
-find_library( CETLIB NAMES cetlib PATHS $ENV{CETLIB_LIB} )
-
-# Add some more includes
+# Configure the include search path - explicitly add these sigcpp includes
 include_directories ( $ENV{LIBSIGCPP_INC}/sigc++-2.0 )
 include_directories ( $ENV{LIBSIGCPP_LIB}/sigc++-2.0/include )
 
-# Building all libraries and binaries in a single lib and bin directory
-# is useful for a complex product like art.
-SET(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
+# Add certain libraries not covered by the @find_ups_product@ commands
+find_library( FHICLCPP NAMES fhiclcpp PATHS $ENV{FHICLCPP_LIB} )
 
-# Build all executables in a single directory
-SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+find_library( MF_MESSAGELOGGER NAMES MF_MessageLogger
+                              PATHS $ENV{MESSAGEFACILITY_LIB} )
+find_library( MF_MESSAGESERVICE NAMES MF_MessageService
+                              PATHS $ENV{MESSAGEFACILITY_LIB} )
+find_library( MF_UTILITIES NAMES MF_Utilities
+                              PATHS $ENV{MESSAGEFACILITY_LIB} )
+find_library( MF_EXTENSIONS NAMES MF_ExtModules
+                              PATHS $ENV{MESSAGEFACILITY_LIB} )
 
-## Include cmake modules that define "simple_plugin" and other tools
-include(BuildPlugins)
+# Ensure system libraries are not used for the following
+
+find_library( SIGC    NAMES sigc-2.0  PATHS $ENV{LIBSIGCPP_LIB} NO_DEFAULT_PATH )
+
+find_library( CPPUNIT NAMES cppunit   PATHS $ENV{CPPUNIT_LIB}   NO_DEFAULT_PATH )
+
+# Macros for art_make and simple plugins
 include(ArtDictionary)
+include(BuildPlugins)
+include(ArtMake)
 
-# Include the packaging utility
+# Build these directories
+add_subdirectory( DataObjects )
+add_subdirectory( fcl )
+add_subdirectory( HitAndTrackObjects )
+add_subdirectory( Lesson1 )
+add_subdirectory( Lesson2 )
+add_subdirectory( ups )
+add_subdirectory( test )
+
+
+# Packaging facility
 include(UseCPack)
-
-# Test scripts and stuff will be placed in the build/bin area. Since this product doesn't
-# normally have a bin area (it makes a library), we need to create one here
-file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
-
-# h3. Specify subdirectories to build
-
-# --> You have to tell Cmake about *EVERY* subdirectory that contains 
-# directories or files to build. If you don't, cmake will ignore those subdirectories
-# and you will be sad. The order does not really matter (but it is the order of building, which
-# should not really matter because CMake will figure out the dependencies)
-add_subdirectory(ups)
-add_subdirectory(fcl)
-add_subdirectory(Lesson1)
-add_subdirectory(DataObjects)
-add_subdirectory(HitAndTrackObjects)
-add_subdirectory(Lesson2)
-add_subdirectory(test)
 
 

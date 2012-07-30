@@ -109,4 +109,4 @@ void artex::HelloWorld2::endJob(){
 
 // Some boiler plate for the Art system. Note that the namespace is handled
 // differently here than in @HelloWorld1@
-DEFINE_ART_MODULE(artex::HelloWorld2);
+DEFINE_ART_MODULE(artex::HelloWorld2)

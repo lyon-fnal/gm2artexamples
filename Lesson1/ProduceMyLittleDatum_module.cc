@@ -41,7 +41,7 @@ private:
 };
 
 // The constructor
-artex::ProduceMyLittleDatum::ProduceMyLittleDatum(fhicl::ParameterSet const &p)
+artex::ProduceMyLittleDatum::ProduceMyLittleDatum(fhicl::ParameterSet const &)
 {
     // Every object we want to put into the event must have a 
     // @produces@ call like the one below
@@ -77,4 +77,4 @@ void artex::ProduceMyLittleDatum::produce(art::Event &e) {
 }
 
 // The regular boilerplate
-DEFINE_ART_MODULE(artex::ProduceMyLittleDatum);
+DEFINE_ART_MODULE(artex::ProduceMyLittleDatum)

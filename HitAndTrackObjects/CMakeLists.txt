@@ -2,7 +2,7 @@
 ## The library name should being with the package name.
 ## You will have to use this library name in the directory with the modules.
 
-cet_make( LIBRARY_NAME gm2artexamples_hitandtrackobjects )
+art_make( LIBRARY_NAME gm2artexamples_hitandtrackobjects )
 
 ## Put the headers in the release area too
 

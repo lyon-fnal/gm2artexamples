@@ -7,7 +7,8 @@
 # You don't have to list the sources, the build system will figure it out. 
 # The library name should be prefixed with the package name ( @gm2artexamples@ in this case). 
 # You will have to use this library name in the directory with the modules.
-cet_make( LIBRARY_NAME gm2artexamples_dataobjects )
+#art_make( LIBRARY_NAME gm2artexamples_dataobjects )
+art_make()
 
 # Put the headers in the release area too
 install_headers()
