@@ -35,7 +35,7 @@ public:
     virtual ~MyDatumReader();
     
     // The usual @analyze@ member function
-    virtual void analyze(art::Event const &e);
+    virtual void analyze(art::Event const &e) override;
         
 private:
     

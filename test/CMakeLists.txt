@@ -2,11 +2,14 @@
 
 # h3. Setup CMake
 
-# Define the project
-project( gm2artexamples_Tests )
+# Turn on asserts
+cet_enable_asserts()
 
 # Include the CET test macro (mandatory)
 include(CetTest)
+
+# Initialize the testing environment
+cet_test_env("FHICL_FILE_PATH=.")
 
 # Link with the data objects library - we are going to test the objects in here
 link_libraries( gm2artexamples_DataObjects )

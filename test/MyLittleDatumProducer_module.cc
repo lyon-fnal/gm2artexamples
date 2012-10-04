@@ -40,8 +40,8 @@ artextest::MyLittleDatumProducer::~MyLittleDatumProducer() {
 
 // Produce method (put the data into the event)
 void artextest::MyLittleDatumProducer::produce(art::Event &e) {
-    std::auto_ptr<artex::MyLittleDatum> mld( new artex::MyLittleDatum(25.5) );
-    e.put(mld);
+    std::unique_ptr<artex::MyLittleDatum> mld( new artex::MyLittleDatum(25.5) );
+    e.put(std::move(mld));
 }
 
 // Standard boiler plate

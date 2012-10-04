@@ -40,8 +40,8 @@ public:
   explicit makeHits(fhicl::ParameterSet const &p);
   virtual ~makeHits();
 
-  virtual void produce(art::Event &e);
-  virtual void endJob();
+  virtual void produce(art::Event &e) override;
+  virtual void endJob() override;
 
 
 private:
@@ -90,7 +90,7 @@ artex::makeHits::~makeHits() {
 
 void artex::makeHits::produce(art::Event &e) {
     // Make a place to put hits
-    std::auto_ptr< HitCollection > hits( new HitCollection );
+    std::unique_ptr< HitCollection > hits( new HitCollection );
     
     // Let's decide how many hits we want to make (maximum of 100)
     int nHits = flat_->fireInt(100);
@@ -120,7 +120,7 @@ void artex::makeHits::produce(art::Event &e) {
     }
     
     // Put the hits into the event (don't forget this!)
-    e.put( hits );
+    e.put( std::move(hits) );
     
     // Increment event counter (just for diagnostics)
     nEvents_++;

@@ -33,7 +33,7 @@ public:
     virtual ~ProduceMyLittleDatum();
     
     // The @produce@ member function is called on every event
-    virtual void produce(art::Event &e);
+    virtual void produce(art::Event &e) override;
     
 private:
     
@@ -58,7 +58,7 @@ artex::ProduceMyLittleDatum::~ProduceMyLittleDatum() {}
 void artex::ProduceMyLittleDatum::produce(art::Event &e) {
     
     //Create an empty data product (in this case a @artex::MyLittleDatumCollection@
-    std::auto_ptr< artex::MyLittleDatumCollection > datums(new artex::MyLittleDatumCollection);
+    std::unique_ptr< artex::MyLittleDatumCollection > datums(new artex::MyLittleDatumCollection);
     
     // Fill it with some bogus values. We'll put four values in the vector (e.g. like having
     // four hits)
@@ -68,7 +68,7 @@ void artex::ProduceMyLittleDatum::produce(art::Event &e) {
     datums->push_back( MyLittleDatum(19.93) );
     
     // Put it in the event
-    e.put( datums );    
+    e.put( std::move(datums) );    
     
     // Let's write a little log message
     mf::LogVerbatim("test") << "Wrote data for event " << e.id();

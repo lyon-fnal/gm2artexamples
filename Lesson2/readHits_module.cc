@@ -33,7 +33,7 @@ public:
   explicit readHits(fhicl::ParameterSet const &p);
   virtual ~readHits();
 
-  virtual void analyze(art::Event const &e);
+  virtual void analyze(art::Event const &e) override;
 
 
 private:

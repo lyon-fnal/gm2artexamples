@@ -34,16 +34,16 @@ public:
   // h4. Member function declaration
     
   // @beginJob@ runs when the ART job starts  
-  virtual void beginJob();
+  virtual void beginJob() override;
     
   // @beginRun@ runs when ART advances into a new run  
-  virtual void beginRun(art::Run const &run);
+  virtual void beginRun(art::Run const &run) override;
     
   // @analyze@ runs for every event  
-  virtual void analyze(art::Event const &e);
+  virtual void analyze(art::Event const &e) override;
     
   // @endJob@ runs at the end of the ART job
-  virtual void endJob();
+  virtual void endJob() override;
     
 // h4. Member data
 private:

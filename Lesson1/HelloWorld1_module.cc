@@ -42,7 +42,7 @@ namespace artex {
     explicit HelloWorld1(fhicl::ParameterSet const& pset);
 
     // Declare the @analyze@ member function that runs on each event
-    void analyze(const art::Event& event );
+    void analyze(const art::Event& event ) override;
       
     // Declare the destructor (as virtual in case someone inherits from this object)
     virtual ~HelloWorld1();
