@@ -3,7 +3,7 @@
 // Another simple ART module that handles a configuration parameter and
 // prints a message for each event
 
-// See @HelloWorld1@ for more basic information
+// See @HelloWorld1@ for more basic information.
 
 // The skeleton of this code was generated with 
 // <pre>artmod analyzer artex::HelloWorld2</pre>
