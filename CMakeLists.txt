@@ -53,18 +53,18 @@ endif()
 cet_report_compiler_flags()
 
 # Locate some UPS areas (the versions are just minimum required) and setup include paths
-find_ups_product(cetbuildtools v2_01_03)
-find_ups_product(cpp0x v1_03_07)
+find_ups_product(cetbuildtools v2_03_03)
+find_ups_product(cpp0x v1_03_14)
 find_ups_product(libsigcpp v2_2_10)
 find_ups_product(cppunit v1_12_1)
-find_ups_product(clhep v2_1_2_2)
-find_ups_product(cetlib v1_03_07)
-find_ups_product(gccxml v0_9)
-find_ups_product(art v1_00_11)
-find_ups_product(fhiclcpp v2_16_00)
-find_ups_product(messagefacility v1_10_00)
-find_ups_root( v5_30_06 )
-find_ups_boost( v1_49_0 filesystem
+find_ups_product(clhep v2_1_2_4)
+find_ups_product(cetlib v1_03_14)
+find_ups_product(gccxml v0_9_20120702)
+find_ups_product(art v1_02_02)
+find_ups_product(fhiclcpp v2_17_01)
+find_ups_product(messagefacility v1_10_15)
+find_ups_root( v5_34_01 )
+find_ups_boost( v1_50_0 filesystem
                         program_options
                         regex
                         thread

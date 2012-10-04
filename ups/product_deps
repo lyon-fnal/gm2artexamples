@@ -1,8 +1,8 @@
 # This @product_deps@ file defines dependencies for this package. 
 
 # The *parent* line must the first non-commented line and defines this product and version
-parent gm2artexamples v0_0_2
-defaultqual a7
+parent gm2artexamples v0_3
+defaultqual e2
 
 # These optional lines define where headers, libraries, and executables go and should
 # be used only if your product does not conform to the defaults.
@@ -15,15 +15,15 @@ defaultqual a7
 product          version
 libsigcpp        v2_2_10
 cppunit          v1_12_1
-fhiclcpp         v2_16_07
-messagefacility  v1_10_08
-art              v1_00_11
+fhiclcpp         v2_17_01
+messagefacility  v1_10_15
+art              v1_02_02
 
-only_for_build  cetbuildtools v2_01_03
-only_for_build  gm2softwaretools v11_1_0
+only_for_build  cetbuildtools v2_03_03
+only_for_build  gm2softwaretools v201209_01
 
 # We now define allowed qualifiers
-qualifier       art      libsigcpp    cppunit       fhiclcpp  messagefacility  notes
-a7:debug      a7:debug   gcc46:debug  gcc46:debug   a7:debug   a7:debug   
-a7:opt        a7:opt     gcc46:opt    gcc46:opt     a7:opt     a7:opt
-a7:prof       a7:prof    gcc46:prof   gcc46:prof    a7:prof    a7:prof
+qualifier        art        libsigcpp        cppunit        fhiclcpp        messagefacility        notes
+e2:debug         e2:debug   e2:debug         e2:debug       e2:debug        e2:debug               
+e2:opt           e2:opt     e2:opt           e2:opt         e2:opt          e2:opt                 
+e2:prof          e2:prof    e2:prof          e2:prof        e2:prof         e2:prof                
