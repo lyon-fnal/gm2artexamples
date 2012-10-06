@@ -1,0 +1,34 @@
+/css/codeDocifyDoc.css
+h1. Data Objects for Art
+
+New data objects (also called data products) need to be thought out carefully. Consult with software experts before making a new data object. 
+
+For help and guidance, see the "Art Data Product Design Guide":https://cdcvs.fnal.gov/redmine/projects/art/wiki/Data_Product_Design_Guide
+
+Here is a summary of the guidelines:
+
+* Separate algorithm code from data products. Algorithms should not go into the data product classes. Instead, write algorithm classes that *use* data products.
+
+* Data products *never* contain pointers and references. Instead, contain by value or use @art::Ptr<T>@, @art::PtrVector<T>@ or @art::Assns<A, B, D>@. See "here":http://mu2e.fnal.gov/public/hep/computing/InterProductReferences.shtml for more information on these concepts.
+
+* Contain instead of inherit.
+
+* Use @struct@ for very simple classes ("value aggregates").
+
+* The only member functions should be simple accessors.
+
+* Let the compiler write the destructor, copy constructor, copy assignment, move constructor, and move assignment member function (you define none of them - conversely, if you define one of them, you must define all of them).
+
+There are some special requiremnts due to using Root for persistency:
+
+* You must write a default constructor (usually empty).
+
+* All other member functions should be hidden from @GCCXML@ (the thing that makes the Root dictionary). See the guide in the link above.
+
+* Include as few headers as possible. Prefer forward references. Hide them from @GCCXML@ if possible.
+
+* Use "Facade" classes for transient data. 
+
+* You must hide all C++2011 features from @GCCXML@ (Root can't handle them yet).
+
+If you are following the tutorial, you should look at &l=DataObjects/CMakeLists.txt& next.
