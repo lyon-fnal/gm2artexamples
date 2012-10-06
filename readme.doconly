@@ -57,7 +57,5 @@ The best way to learn Art is with examples. This Redmine package, @gm2artexample
 
 h2. A quick tour of @gm2artexamples@
 
-Here is the directory tree of the @gm2artexamples@ Redmine project. Start looking at the directories and files. 
-
-<iframe style="height:400px;" src="https://cdcvs.fnal.gov/codeDocify/codedocify/rmineRepository.html?proj=gm2artexamples&rev=&rev&&iframe">iframe goes here</iframe>
+Cllick <a href="https://cdcvs.fnal.gov/codeDocify/codedocify/rmineRepository.html?proj=gm2artexamples&rev=&rev&">here</a> to start exploring the files in this example.
 
