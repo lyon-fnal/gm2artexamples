@@ -2,7 +2,6 @@
 h1. Art Tutorial for g-2 
 
 bq. Adam Lyon (FNAL SCD)<br />
-February 2012
 
 This document is a tutorial for Art. It explains the code in the @gm2artexamples@ Redmine project. 
 
@@ -54,31 +53,11 @@ I'm not sure what we would do with sub-run. Typically, most experiments break up
 
 h2. Learning Art with examples
 
-The best way to learn Art is with examples. This Redmine package, @gm2artexamples@ is meant to be a guide to coding and using Art. Review the instructions in "DevelopingCode":https://cdcvs.fnal.gov/redmine/projects/g-2/wiki/DevelopingCode for how to setup your environment, checking out code, and building it. After setting up a development area, do the following to retrieve the code...
-
-<pre>gm2d getRedmineGit gm2artexamples</pre>
-
-Be sure to source the appropriate @setup_for_development@ script. That is,
-
-<pre># in the build directory<br />
-source ../src/gm2artexamples/ups/setup_for_development
-</pre>
-
-Now you can build as normal. When the build is done, you can try out an example with 
-
-<pre>gm2 -c hello1.fcl</pre>
-
-You should see some reasonable output. 
+The best way to learn Art is with examples. This Redmine package, @gm2artexamples@ is meant to be a guide to coding and using Art. Review the instructions in "DevelopingCode":https://cdcvs.fnal.gov/redmine/projects/g-2/wiki/DevelopingCode for how to setup your environment, checking out code, and building it. 
 
 h2. A quick tour of @gm2artexamples@
 
-Here is the directory tree of the @gm2artexamples@ Redmine project. 
+Here is the directory tree of the @gm2artexamples@ Redmine project. Start looking at the directories and files. 
 
-<iframe style="height:400px;" src="https://cdcvs.fnal.gov/codeDocify/codedocify/rmineRepository.html?proj=gm2artexamples&rev=feature/migrateArt1_0_6&iframe">iframe goes here</iframe>
-
-We will go through each directory in sections below.
-
-<div id="foo">bla</div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<iframe style="height:400px;" src="https://cdcvs.fnal.gov/codeDocify/codedocify/rmineRepository.html?proj=gm2artexamples&rev=&rev&&iframe">iframe goes here</iframe>
 
