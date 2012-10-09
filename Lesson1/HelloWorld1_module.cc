@@ -41,7 +41,7 @@ namespace artex {
     // declared as @explicit@. 
     explicit HelloWorld1(fhicl::ParameterSet const& pset);
 
-    // Declare the @analyze@ member function that runs on each event
+    // Declare the @analyze@ member function that runs on each event. Note the use of @override@.
     void analyze(const art::Event& event ) override;
       
     // Declare the destructor (as virtual in case someone inherits from this object)

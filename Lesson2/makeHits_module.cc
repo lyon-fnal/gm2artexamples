@@ -1,45 +1,35 @@
-////////////////////////////////////////////////////////////////////////
-// Class:       makeHits
-// Module Type: producer
-// File:        makeHits_module.cc
-//
-// Generated at Tue Oct 18 16:45:58 2011 by Adam Lyon using artmod
-// from art v0_07_13.
-//
-//  This producer makes hits (see HitAndTrackObjects/Hit.hh). What we'll do 
+// This is the makeHits Art module. 
+
+//  This producer makes hits (see HitAndTrackObjects/HitData.hh). What we'll do 
 //  is we'll draw the x,y,z positions from random gaussians, and we'll draw the weight from
 //  a flat random number. We'll decide how many hits to make with another flat random number. 
-//
-//  This module is a little unusual because we're going to have two random number
-//  generators (Gaussian and Flat) based off of the same engine. To do this, we need
-//  to store the engine as member data. Typically, if you
-//  need random numbers you would need only one generator (e.g. Flat) and then you 
-//  can store the generator without having to store the engine. See the 
-//  "makeTracks" producer for this simpler situation. 
-//
-////////////////////////////////////////////////////////////////////////
 
+// Art includes
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 
 // Include the header to our Hit objects
-#include "HitAndTrackObjects/HitCollection.hh"
+#include "HitAndTrackObjects/HitDataCollection.hh"
 
 // Random number generator stuff
 #include "CLHEP/Random/RandFlat.h"
 #include "CLHEP/Random/RandGaussQ.h"
 
-
+// Put into the namespace
 namespace artex {
   class makeHits;
 }
 
+// The class
 class artex::makeHits : public art::EDProducer {
 public:
-  explicit makeHits(fhicl::ParameterSet const &p);
-  virtual ~makeHits();
 
+  // C'tor and D'tor
+  explicit makeHits(fhicl::ParameterSet const &p);
+  virtual ~makeHits() {};
+
+  // The Art methods
   virtual void produce(art::Event &e) override;
   virtual void endJob() override;
 
@@ -48,14 +38,8 @@ private:
 
     // Declare member data here.
     // We need to hang onto the Random Number Engine since we are going to make two generators from it.
-    // If you just had one generator, you would not need to keep the Engine
+    // If you just had one generator, you could just store the generator itself instead of the engine. 
     CLHEP::HepRandomEngine& engine_;
-    
-    // The Flat random number generator
-    CLHEP::RandFlat* flat_;
-    
-    // The Gaussian random number generator
-    CLHEP::RandGaussQ* gauss_;    
     
     // Just for fun, let's add up how many hits we made
     unsigned int nHits_;
@@ -65,35 +49,29 @@ private:
 };
 
 
+// Constructor
 artex::makeHits::makeHits(fhicl::ParameterSet const &p)
      : engine_( createEngine(get_seed_value(p)) ), // If there is a "seed" parameter for this module, it will be used
        nHits_(0),
        nEvents_(0)
-{
-    // Make the random number generators
-    // Note that I can't put this in the initialization list (after the : above) because
-    // the order of execution of those initializations is not guaranteed. 
-    // So put them in the body of the constructor and it'll do what you want. The only sad
-    // thing about this is that the member data have to be pointers. 
-    flat_ = new CLHEP::RandFlat( engine_ );
-    gauss_ = new CLHEP::RandGaussQ( engine_ );
-    
-    // Call appropriate Produces<>() functions here.
-    produces< HitCollection >();
+{    
+    // Every object we want to put into the event must have a 
+    // @produces@ call like the one below
+    produces< artex::HitDataCollection >() ;
 }
 
-artex::makeHits::~makeHits() {
-    // Clean up dynamic memory and other resources here.
-    delete flat_;
-    delete gauss_;
-}
-
+// The Art produce method
 void artex::makeHits::produce(art::Event &e) {
+
+    // Let's make flat and gaussian random number generators
+    CLHEP::RandFlat     flat(   engine_ );
+    CLHEP::RandGaussQ   gauss(  engine_ );
+
     // Make a place to put hits
-    std::unique_ptr< HitCollection > hits( new HitCollection );
+    std::unique_ptr< HitDataCollection > hits( new HitDataCollection );
     
     // Let's decide how many hits we want to make (maximum of 100)
-    int nHits = flat_->fireInt(100);
+    int nHits = flat.fireInt(100);
     
     // Debug
     LOG_DEBUG("HitConstruction") << "Making " << nHits << " hits";
@@ -102,37 +80,43 @@ void artex::makeHits::produce(art::Event &e) {
     for ( unsigned int i=0; i <= nHits; ++i ) {
         
         // We want to fill a hit, make the components!
-        double x = gauss_->fire(-5.0,  10.0 );  // Mean = -5, sd=10
-        double y = gauss_->fire( 5.0,  10.0 );  // Mean = +5, sd=10
-        double z = gauss_->fire( 0.0,  20.0 );  // Mean =  0, sd=20
-        double w = flat_->fire();  // (0,1)
+        double x = gauss.fire(-5.0,  10.0 );  // Mean = -5, sd=10
+        double y = gauss.fire( 5.0,  10.0 );  // Mean = +5, sd=10
+        double z = gauss.fire( 0.0,  20.0 );  // Mean =  0, sd=20
+        double w = flat.fire();  // (0,1)
 
         // Some debug output - note that I use a different category here so that
         // these message are suppressed differently
         LOG_DEBUG("HitConstructionSub") << "x=" << x << " y=" << y << " z=" << z << " w=" << w;
+
+        // We have x, y, z, and w - so put it in the vector. Note that we are going to use
+        // @hits->emplace_back@ instead of the more typical @hits->push_back@. When using @push_back@, you 
+        // create an object that gets copied into the vector. With @emplace_back@, you pass in
+        // the data needed for the constructor of what the vector is holding. The object is then
+        // constructed _within_ the vector, saving a copy. Cool!
         
-        // Make the hit and push it into the collection
-        hits->push_back( Hit( CLHEP::Hep3Vector( x, y, z ), w ) );  
+        hits->emplace_back( x, y, z, w );
         
         // Increment our counter (just for diagnostics; note that nHits_ is not the same
         // variables as nHits)
         nHits_++;
     }
     
-    // Put the hits into the event (don't forget this!)
+    // Put the hits into the event (don't forget this!). Note that hits is a @unique_ptr@. These smart 
+    // pointers cannot be assigned. You must use @std::move@. Note that @unique_ptr@ replaces @auto_ptr@ in
+    // C++2011
     e.put( std::move(hits) );
     
     // Increment event counter (just for diagnostics)
     nEvents_++;
 }
 
+// Art endJob method
 void artex::makeHits::endJob() {
    // Let's print out some summary information
    mf::LogInfo("HitConstructionDone") << "makeHits produced " << nHits_ << " hits in " <<
-                                          nEvents_ << " events";
-
-   
+                                          nEvents_ << " events";   
 }
 
-
+// The important macro call
 DEFINE_ART_MODULE(artex::makeHits)

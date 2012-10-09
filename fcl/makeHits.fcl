@@ -52,14 +52,14 @@ physics:  {
 
   producers : {
 
-     makeHits : {
+     HitMaker : {
          module_type: makeHits
-#         seed: [100, 200, 300]
+         seed: [100, 200, 300]
       }
    }
  
   ## Specify the trigger paths and streams
-  path1: [ makeHits]
+  path1: [ HitMaker]
   stream1:  [ out1 ]
 
   trigger_paths: [ path1 ]

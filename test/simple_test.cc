@@ -26,9 +26,9 @@ int main () {
     
     // Test the default constructor
     artex::MyLittleDatum a;
-    ensure(1, "Default constructor", a.datum() == 0 );
+    ensure(1, "Default constructor", a.datum == 0 );
     
     // Test the constructor with an argument
     artex::MyLittleDatum b(25.2);
-    ensure(2, "Constructor with argument", fabs(b.datum() - 25.2) < 0.00001 );
+    ensure(2, "Constructor with argument", fabs(b.datum - 25.2) < 0.00001 );
 }

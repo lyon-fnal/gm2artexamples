@@ -4,6 +4,9 @@
 // a simple data object in ART. Note that there are no references to anything in ART itself
 // in this file.
 
+// We're going to follow the directions in the &l=DataProducts/readme.doconly& and make this a _value aggregate_
+// object (a simple C struct where everything is public).
+
 // Header guards
 #ifndef GM2ARTEXAMPLES_MYLITTLEDATUM_H
 #define GM2ARTEXAMPLES_MYLITTLEDATUM_H
@@ -16,38 +19,36 @@
 namespace artex {
     
     // Now we define the class    
-    class MyLittleDatum {
+    struct MyLittleDatum {
+
+        // Here's the data member
+        float datum;
         
-    private:
+        // Every class needs a default constructor for the persistency mechanism. Since we hold a value,
+        // it will be set to zero
+        MyLittleDatum() {};
+
+        // Hide the following member functions from Root
+        #ifndef __GCCXML__
         
-        // We'll just have one data member, a simple float
-        float m_datum;
+            // The regular constructor
+            MyLittleDatum(float theDatum) :
+                datum(theDatum)
+            {}
+            
+            
+            // Print method for nicely displaying the object. Used by the @&lt;&lt;@ operator below
+            void print( std::ostream& ) const;
+            
+            // Printing operator (shift left). For example, 
+            // <pre>mf::LogVerbatim("test") << m;</pre>
+            std::ostream& operator<<(std::ostream& ost) {
+                print(ost);
+                return ost;
+            }            
         
-    public:
-        
-        // The constructor
-        MyLittleDatum(float datum) :
-            m_datum(datum)
-        {}
-        
-        // Every class needs a default constructor for the persistency mechanism
-        MyLittleDatum() :
-            m_datum(0)
-        {}
-        
-        // An accessor for the data member
-        float datum() const { return m_datum; }
-        
-        // Print method for nicely displaying the object. Used by the @&lt;&lt;@ operator below
-        void print( std::ostream& ) const;
-        
-        // Printing operator (shift left). For example, 
-        // <pre>mf::LogVerbatim("test") << m;</pre>
-        inline std::ostream& operator<<(std::ostream& ost) {
-            print(ost);
-            return ost;
-        }            
-    
+        #endif  // __GCCXML__ 
+
     // End of class    
     };    
    

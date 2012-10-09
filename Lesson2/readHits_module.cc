@@ -1,33 +1,28 @@
-////////////////////////////////////////////////////////////////////////
-// Class:       readHits
-// Module Type: analyzer
-// File:        readHits_module.cc
-//
-// Generated at Tue Oct 18 16:46:20 2011 by Adam Lyon using artmod
-// from art v0_07_13.
-//
-//  We'll read in the hit information and make some histograms and 
-//  a simple root-tuple. This module will make use of the "TFileService" to 
-//  show how to manipulate and create things in a Root file. We'll
-//  put the histograms and ntuple in different directories of the root file.
-////////////////////////////////////////////////////////////////////////
+// This is the readHits Art module. 
 
+//  This is an analyzer that will read HitData from the event and make some plots and a root tree
+
+// Art includes
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 
+// Root + Art includes
 #include "TH1F.h"
 #include "TTree.h"
 #include "art/Framework/Services/Optional/TFileService.h"
 #include "art/Framework/Services/Registry/ServiceHandle.h"
 
-#include "HitAndTrackObjects/HitCollection.hh"
+// Hit includes
+#include "HitAndTrackObjects/HitDataCollection.hh"
+#include "HitAndTrackObjects/Hit.hh"
 
-
+// Namespace
 namespace artex {
   class readHits;
 }
 
+// The class
 class artex::readHits : public art::EDAnalyzer {
 public:
   explicit readHits(fhicl::ParameterSet const &p);
@@ -39,6 +34,11 @@ public:
 private:
 
     // Declare member data here.
+
+    // To find the hit data, we need the name of the module that produced it and an 
+    // instance name. 
+    std::string hitModuleLabel_;
+    std::string instanceName_;
     
     // Names of the sub-directories in the root file
     std::string hist_dir_, tree_dir_;
@@ -56,8 +56,10 @@ private:
 
 
 artex::readHits::readHits(fhicl::ParameterSet const &p) :
-    hist_dir_( p.get<std::string>("hist_dir") ),
-    tree_dir_( p.get<std::string>("tree_dir") )
+    hitModuleLabel_ ( p.get<std::string>("hitModuleLabel",  "HitDataMaker"   ) ),
+    instanceName_   ( p.get<std::string>("instanceName",    ""     ) ),
+    hist_dir_       ( p.get<std::string>("hist_dir"         ) ),
+    tree_dir_       ( p.get<std::string>("tree_dir"         ) )
 {
     // You could require that hist_dir and tree_dir have some real strings, but what if the
     // user just leaves them blank. We then want to use the top level directory.
@@ -72,7 +74,7 @@ artex::readHits::readHits(fhicl::ParameterSet const &p) :
     // Let's assume the top directory. This is *tfs itself
     art::TFileDirectory histDir = *tfs;
     
-    // Did we specify a directory, if so, reassign histDir to the new directory
+    // Did we specify a directory? If so, reassign histDir to the new directory
     if ( ! hist_dir_.empty() ) {
         histDir = tfs->mkdir( hist_dir_ );  // Note how we re-assigned histDir
     }
@@ -89,6 +91,7 @@ artex::readHits::readHits(fhicl::ParameterSet const &p) :
         treeDir = tfs->mkdir( tree_dir_ );
     }
     
+    // Create the tree
     t_hitTree_ = treeDir.make<TTree>("hitTree", "Tree of hits");
     t_hitTree_->Branch("event", &tf_event_, "event/I");
     t_hitTree_->Branch("r", &tf_r_, "r/F");
@@ -104,30 +107,37 @@ artex::readHits::~readHits() {
 void artex::readHits::analyze(art::Event const &e) {
   
     // Extract the hits
-    art::Handle< HitCollection > hitHandle;
-    e.getByLabel("makeHits", hitHandle); // The name here is the producer label
-    HitCollection const& hits = *hitHandle;
-    
-    // Loop over the hits
-    for ( size_t i=0; i < hits.size(); ++i ) {
+
+    // Make the handle
+    art::Handle< HitDataCollection > hitDataHandle;
+
+    // Fill the handle (note the use of the member data)
+    e.getByLabel(hitModuleLabel_, instanceName_, hitDataHandle);
+
+    // Resolve the handle
+    HitDataCollection const & hits = *hitDataHandle;
+
+    // Let's use the nice C++11 vector iteration
+    for ( auto const& hd : hits) {
         
-        // Get the hit
-        Hit const& hit = hits[i];
-        CLHEP::Hep3Vector const& position = hit.position();
-        double weight = hit.weight();
+        // hd is the HitData. Use the Hit facade to add more functionality
+        Hit h(hd);
         
+        // Get the weight. Let's not worry about the type and use @auto@
+        auto weight = h.weight();
+
         // Fill the plots
         h_weights_ -> Fill(weight                );
-        h_r_       -> Fill(position.r(),   weight);
-        h_phi_     -> Fill(position.phi(), weight);
-        h_z_       -> Fill(position.z(),   weight);
+        h_r_       -> Fill(h.position().r(),   weight);
+        h_phi_     -> Fill(h.position().phi(), weight);
+        h_z_       -> Fill(h.position().z(),   weight);
         
         // Fill the tree
         tf_event_ = e.id().event();
-        tf_r_ = position.r();
-        tf_phi_ = position.phi();
-        tf_z_ = position.z();
-        tf_w_ = weight;
+        tf_r_ = h.position().r();
+        tf_phi_ = h.position().phi();
+        tf_z_ = h.position().z();
+        tf_w_ = h.weight();
         
         t_hitTree_ -> Fill();
     }
