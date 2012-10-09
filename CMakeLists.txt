@@ -1,10 +1,6 @@
-#  This file is the main CMakeLists.txt file for the @gm2artexamples@ package. 
+#  This file is the main CMakeLists.txt file for the @gm2artexamples@ package. It is used by the g-2 build system.
 
 # h2. Introduction 
-
-#  Before running cmake, you must ensure that all external
-#  packages are set up already (e.g. source all necessary setup
-#  files, including the appropriate @setup_for_development@ script).
 
 #  If you are copying this project to use as a template for a new project, you will need to make some minor changes. The 
 #  areas where you would have to do so are marked with -->
@@ -24,16 +20,16 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 # project name - use all lowercase)
 PROJECT (gm2artexamples)
 
-# h3. Load build system modules
+# h3. Load build system modules for cmake
 
-# cetbuildtools contains our cmake modules
+# cetbuildtools contains cmake modules that we use
 set( CETBUILDTOOLS_VERSION $ENV{CETBUILDTOOLS_VERSION} )
 if( NOT CETBUILDTOOLS_VERSION )
   message( FATAL_ERROR "ERROR: setup cetbuildtools to get the cmake modules" )
 endif()
 set( CMAKE_MODULE_PATH $ENV{CETBUILDTOOLS_DIR}/Modules ${CMAKE_MODULE_PATH} )
 
-# Add any modules from this source necessary for building
+# Add g-2 modules
 set(CMAKE_MODULE_PATH $ENV{GM2SOFTWARETOOLS_DIR}/Modules ${CMAKE_MODULE_PATH} )
 
 # Include the necessary macros
@@ -44,16 +40,17 @@ include(CetCMakeEnv)
 # Configure
 cet_cmake_env()
 
-# Do the same compiler flag stuff as Art
+# Handle qual e2 (C++11)
 cet_set_compiler_flags(DIAGS VIGILANT WERROR EXTRA_FLAGS -pedantic)
 cet_have_qual( e2 )
 if ( ${CET_HAVE_QUAL} )
-  cet_add_compiler_flags(CXX -std=c++0x;-Wno-deprecated-declarations)
+  cet_add_compiler_flags(CXX -std=c++11;-Wno-deprecated-declarations)
 endif()
 cet_report_compiler_flags()
 
-# Locate some UPS areas (the versions are just minimum required) and setup include paths
+# Locate some UPS areas (the versions are just minimum required) and set up include paths
 find_ups_product(cetbuildtools v2_03_03)
+find_ups_product(gm2softwaretools v201209_01)
 find_ups_product(cpp0x v1_03_14)
 find_ups_product(libsigcpp v2_2_10)
 find_ups_product(cppunit v1_12_1)
@@ -102,7 +99,7 @@ include(ArtDictionary)
 include(BuildPlugins)
 include(ArtMake)
 
-# Build these directories
+# --> Build these directories
 add_subdirectory( DataObjects )
 add_subdirectory( fcl )
 add_subdirectory( HitAndTrackObjects )
@@ -114,5 +111,3 @@ add_subdirectory( test )
 
 # Packaging facility
 include(UseCPack)
-
-

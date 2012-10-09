@@ -7,7 +7,7 @@
 
 void artex::Hit::print( std::ostream& ost ) const {
     ost << "( " 
-        << position_ << "; "
+        << vec_ << "; "
         << weight_
         << " )";
 }

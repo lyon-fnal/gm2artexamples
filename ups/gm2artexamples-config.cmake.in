@@ -3,8 +3,8 @@ get_filename_component (_dir "${CMAKE_CURRENT_LIST_FILE}" PATH)
 get_filename_component (_prefix "${_dir}/../.." ABSOLUTE)
 
 # import the targets
-#include ("${_prefix}/lib/gm2artexamples-@version@/gromit-targets.cmake")
+include ("${_prefix}/lib/gm2artexamples-@version@/gromit-targets.cmake")
 
 # report other information
-#set (gm2artexamples_INCLUDE_DIRS "${_prefix}/include/gm2artexamples-@version@")
+set (gm2artexamples_INCLUDE_DIRS "${_prefix}/include/gm2artexamples-@version@")
 

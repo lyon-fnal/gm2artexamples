@@ -76,7 +76,7 @@ void artex::MyDatumReader::analyze(art::Event const &e) {
     
     // Loop over the vector and show the data. Note the use of @size_t@ 
     for (size_t i=0; i<datumVector.size(); ++i) {
-        log << "   " << datumVector[i].datum() << "\n";
+        log << "   " << datumVector[i].datum << "\n";
     }
     
     // End the @analyze@ member function

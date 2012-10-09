@@ -53,7 +53,7 @@ physics:  {
   producers : {
 
      HitMaker : {
-         module_type: makeHits
+         module_type: makeRotatedHits
          seed: [100, 200, 300]
       }
    }

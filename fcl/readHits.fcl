@@ -21,6 +21,8 @@ physics: {
       module_type: readHits
       hist_dir: ""
       tree_dir: ""
+      hitModuleLabel: HitMaker
+      instanceName: ""
     }
   }
   path1: [ hello ]

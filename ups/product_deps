@@ -1,29 +1,27 @@
 # This @product_deps@ file defines dependencies for this package. 
 
-# The *parent* line must the first non-commented line and defines this product and version
-parent gm2artexamples v0_3
+# See the "documentation":https://cdcvs.fnal.gov/redmine/projects/cet-is-public/wiki/Defining_products_in_the_CET_build_environment for @product_deps@ files. 
+
+# The *parent* line must the first non-commented line and defines the product name and version of this product
+parent gm2artexamples v0_4
 defaultqual e2
 
-# These optional lines define where headers, libraries, and executables go and should
-# be used only if your product does not conform to the defaults.
-# Format: directory_type directory_path directory_name
-#   where directory_type is one of incdir, libdir, or bindir
-#   where directory_path is one of product_dir, fq_dir and - 
-
-# With "product  version" table below, we now define depdendencies
+# We now list the dependencies in a table. You should *not* add dependents of the products listed in the 
+# table. They will be picked up automatically.
 
 product          version
-libsigcpp        v2_2_10
-cppunit          v1_12_1
-fhiclcpp         v2_17_01
-messagefacility  v1_10_15
 art              v1_02_02
 
-only_for_build  cetbuildtools v2_03_03
-only_for_build  gm2softwaretools v201209_01
+# Some dependencies are needed just for *building* our product. Those go here.
 
-# We now define allowed qualifiers
-qualifier        art        libsigcpp        cppunit        fhiclcpp        messagefacility        notes
-e2:debug         e2:debug   e2:debug         e2:debug       e2:debug        e2:debug               
-e2:opt           e2:opt     e2:opt           e2:opt         e2:opt          e2:opt                 
-e2:prof          e2:prof    e2:prof          e2:prof        e2:prof         e2:prof                
+only_for_build  gm2softwaretools    v201209_01
+only_for_build  cetbuildtools       v2_03_03
+
+# We now specify a translation table for how the qualifers of our product translate
+# to qualifiers of dependents. If a dependent doesn't have a qualifier, use "-nq-" (don't include
+# the quotes). If, for a particular qualifer the product does not need to be set up at all, use "-". The @notes@ 
+# column is for any comments about the qualifiers. 
+qualifier        art             notes
+e2:debug         e2:debug              
+e2:opt           e2:opt     
+e2:prof          e2:prof

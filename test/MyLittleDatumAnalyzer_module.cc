@@ -54,7 +54,7 @@ void artextest::MyLittleDatumAnalyzer::analyze( art::Event const & e )
     artex::MyLittleDatum const& mld = *h;
     
     // Check the data
-    BOOST_REQUIRE_CLOSE(mld.datum(), 25.5, .0001);
+    BOOST_REQUIRE_CLOSE(mld.datum, 25.5, .0001);
     
 }  // analyze()
 

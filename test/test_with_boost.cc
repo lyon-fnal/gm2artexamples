@@ -15,14 +15,14 @@ BOOST_AUTO_TEST_SUITE ( test_with_boost )
 BOOST_AUTO_TEST_CASE ( default_constructor )
 {
     artex::MyLittleDatum a;
-    BOOST_REQUIRE_EQUAL( a.datum(), 0 );
+    BOOST_REQUIRE_EQUAL( a.datum, 0 );
 }
 
 // Test the constructor with an argument
 BOOST_AUTO_TEST_CASE ( constructor_with_argument )
 {
     artex::MyLittleDatum b(25.2);
-    BOOST_REQUIRE_CLOSE( b.datum(), 25.2, 0.0001 );
+    BOOST_REQUIRE_CLOSE( b.datum, 25.2, 0.0001 );
 }
 
 // Declare the end of the test suite (don't forget this line)
