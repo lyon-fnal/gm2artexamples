@@ -118,10 +118,10 @@ void artex::readHits::analyze(art::Event const &e) {
     HitDataCollection const & hits = *hitDataHandle;
 
     // Let's use the nice C++11 vector iteration
-    for ( auto const& hd : hits) {
+    for ( auto hdata : hits) {
         
-        // hd is the HitData. Use the Hit facade to add more functionality
-        Hit h(hd);
+        // h is a hitdata in the collection. Wrap it in our facade
+        Hit h(hdata);
         
         // Get the weight. Let's not worry about the type and use @auto@
         auto weight = h.weight();

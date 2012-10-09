@@ -1,7 +1,6 @@
-//
 //  Hit.hh
-// 
-// A facade class for a HitData object. Add the power of @CLHEP::Hep3Vector@ to HitData.
+
+// A facade class for a @HitData@ object. Add the power of @CLHEP::Hep3Vector@ to HitData.
 
 // You can also construct a HitData object from a @CLHEP::Hep3Vector@
 
