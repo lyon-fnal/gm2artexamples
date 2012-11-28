@@ -74,7 +74,7 @@ void artex::makeRotatedHits::produce(art::Event &e) {
     std::unique_ptr< artex::HitDataCollection > hits( new artex::HitDataCollection );
     
     // Let's decide how many hits we want to make (maximum of 100)
-    int nHits = flat.fireInt(100);
+    unsigned int nHits = flat.fireInt(100);
     
     // Debug
     LOG_DEBUG("HitConstruction") << "Making " << nHits << " hits";

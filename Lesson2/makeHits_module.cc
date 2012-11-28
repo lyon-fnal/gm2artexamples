@@ -71,13 +71,13 @@ void artex::makeHits::produce(art::Event &e) {
     std::unique_ptr< HitDataCollection > hits( new HitDataCollection );
     
     // Let's decide how many hits we want to make (maximum of 100)
-    int nHits = flat.fireInt(100);
+    unsigned int nHits = flat.fireInt(100);
     
     // Debug
     LOG_DEBUG("HitConstruction") << "Making " << nHits << " hits";
     
     // Loop to fill
-    for ( unsigned int i=0; i <= nHits; ++i ) {
+    for (unsigned int i=0; i <= nHits; ++i ) {
         
         // We want to fill a hit, make the components!
         double x = gauss.fire(-5.0,  10.0 );  // Mean = -5, sd=10

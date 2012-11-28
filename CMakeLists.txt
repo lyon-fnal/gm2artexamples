@@ -46,6 +46,10 @@ cet_have_qual( e2 )
 if ( ${CET_HAVE_QUAL} )
   cet_add_compiler_flags(CXX -std=c++11;-Wno-deprecated-declarations)
 endif()
+if ( ${APPLE} )
+  cet_add_compiler_flags(CXX -undefined dynamic_lookup)
+endif()
+
 cet_report_compiler_flags()
 
 # Locate some UPS areas (the versions are just minimum required) and set up include paths

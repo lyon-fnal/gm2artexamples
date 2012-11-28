@@ -10,11 +10,11 @@ defaultqual e2
 # table. They will be picked up automatically.
 
 product          version
-art              v1_02_02
+art              v1_02_04
 
 # Some dependencies are needed just for *building* our product. Those go here.
 
-only_for_build  gm2softwaretools    v201209_01
+only_for_build  gm2softwaretools    v201211
 only_for_build  cetbuildtools       v2_03_03
 
 # We now specify a translation table for how the qualifers of our product translate
