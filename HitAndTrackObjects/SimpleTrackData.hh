@@ -55,4 +55,4 @@ namespace artex {
 
 #endif
 
-// This file starts the @Ptr@ tutorial. If you are following along, go &l=HitAndDataObjects/HitData.hh& next (where we had to add an @operator<@ method).
+// This file starts the @Ptr@ tutorial. If you are following along, go &l=HitAndTrackObjects/HitData.hh& next (where we had to add an @operator<@ method).
