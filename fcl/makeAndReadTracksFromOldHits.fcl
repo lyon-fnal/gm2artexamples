@@ -1,0 +1,89 @@
+# Make and read track objects
+
+#include "minimalMessageService.fcl"
+
+## The name of our process
+process_name: makingHits
+
+## Define stuff for the message facility. Note this will be loaded later with @local::myMessages
+myMessages :  {
+  debugModules : ["*"]
+  suppressInfo : []
+  
+  destinations : {
+     
+     LogToConsole : {
+        type : "cout"
+        threshold : "DEBUG"
+        
+        categories : { 
+          default : { limit : 20 }
+        }
+     }
+   }
+}
+             
+
+## Load services
+services: {
+   # Load the RandomNumberGenerator service without any options
+  RandomNumberGenerator: {}  
+ 
+   # Turn on default messaging
+   message: @local::myMessages
+   
+   TFileService: {
+    fileName: "myout.root"
+  }
+}
+
+## Source of events
+source: {
+  module_type: EmptyEvent
+  maxEvents:  100
+}
+
+## Specify the outputs
+outputs: {
+   out1 : {
+     module_type: RootOutput   
+     fileName: "data01.root"
+   }
+}
+ 
+## We need to schedule our producer
+physics:  {
+
+  producers : {
+
+   HitMaker : {
+       module_type: makeHits
+       seed: [100, 200, 300]
+    }
+    
+    TrackMaker : {
+      module_type: makeSimpleTracksFromOldHits
+      seed : [200, 300, 400]
+      hitsModuleLabel : HitMaker
+      hitsInstanceLabel : ""
+      hitWeightGreaterThanThis : 0.9
+    }
+  }
+
+  analyzers : {
+    readTracks: {
+      module_type: readSimpleTracks
+      hist_dir: ""
+      hitModuleLabel: TrackMaker
+      instanceName: ""
+    }
+  }
+
+  ## Specify the trigger paths and streams
+  path1: [ HitMaker, TrackMaker]
+  ana1: [readTracks]
+  stream1:  [ out1 ]
+
+  trigger_paths: [ path1 ]
+  end_paths: [ ana1, stream1 ]
+}

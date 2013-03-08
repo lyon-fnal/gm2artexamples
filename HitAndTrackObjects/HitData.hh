@@ -31,6 +31,13 @@ namespace artex {
             HitData(double ix, double iy, double iz, double iweight) :
                 x(ix), y(iy), z(iz), weight(iweight)
                 {};
+      
+            // HitData objects will be going inside of Ptr's, so we need a comparison operator
+            bool operator<( const HitData& other ) const {
+
+              // Simply compare the weights
+               return weight < other.weight;
+            }
 
             // Pretty printing
             void print( std::ostream& )const;
