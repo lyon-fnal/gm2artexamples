@@ -55,3 +55,5 @@ namespace artex {
 }  // end namespace artex
 
 #endif
+
+// If you are following the @Ptr@ tutorial, go to &l=HitAndTrackObjects/classes.h& next.

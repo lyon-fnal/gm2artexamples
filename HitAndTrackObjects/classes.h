@@ -31,3 +31,4 @@ template class std::vector< art::Ptr< artex::HitData > >;
 // template the wrapper of the ptr vector (typedef ok)
 template class art::Wrapper< art::PtrVector< artex::HitData > >;
 
+// If you are following the @Ptr@ tutorial, go to &l=HitAndTrackObjects/classes_def.xml& next.
