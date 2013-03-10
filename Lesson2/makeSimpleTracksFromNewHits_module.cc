@@ -2,9 +2,13 @@
 
 // This producer module makes hits and uses them to create simple
 // tracks (@HitAndTrackObjects/SimpleTrackData@). The point here is to
-// create @Ptr@ for object not already in the event. It is not clear if you
+// create @Ptr@ for objects not already in the event. It is not clear if you
 // would ever really want to do this in one module, but let's learn
 // how to do it anyway.
+
+// Note that this is a very stupid nonsensical way to make tracks. The goal here is to explain
+// the @Ptr@ concepts with an easy example. Certainly don't use this example to learn track finding!
+
 
 // Art includes
 #include "art/Framework/Core/EDProducer.h"
@@ -39,7 +43,7 @@ public:
   virtual void endJob() override;
   
 private:
-  // Private
+
   // Declare member data here.
   // We need to hang onto the Random Number Engine since we are going to make two generators from it.
   // If you just had one generator, you could just store the generator itself instead of the engine.
@@ -61,7 +65,7 @@ engine_( createEngine(get_seed_value(p)) ),  // Use a "seed" parameter if there 
 hitWeightGreaterThanThis_( p.get<float>("hitWeightGreaterThanThis", 0.5 )),
 madeNHits_(0), madeNTracks_(0), madeNHitsOnTracks_(0), nEvents_(0)
 {
-  // We hae to declare what this producer is producing
+  // We have to declare what this producer is producing
   produces< artex::HitDataCollection > ();
   produces< artex::SimpleTrackDataCollection > ();
 }
@@ -69,14 +73,14 @@ madeNHits_(0), madeNTracks_(0), madeNHitsOnTracks_(0), nEvents_(0)
 // The produce method does all the work
 void artex::MakeSimpleTracksFromNewHits::produce(art::Event &e) {
   
-  // In reality, tracking finding is a complicated process. Here, were just going to do something stupid
+  // In reality, tracking finding is a complicated process. Here, we're just going to do something stupid
   // and pick hits and values randomally. We really want to show how @Ptr@ works instead of tracking algorithms.
   
   // Make our random number generators
   CLHEP::RandFlat     flat(   engine_ );
   CLHEP::RandGaussQ   gauss(  engine_ );
   
-  // Make the empty collections
+  // Make the empty collections we're going to fill with our created hits and tracks
   std::unique_ptr< HitDataCollection >         hits(   new HitDataCollection );
   std::unique_ptr< SimpleTrackDataCollection > tracks( new SimpleTrackDataCollection );
   
@@ -89,7 +93,7 @@ void artex::MakeSimpleTracksFromNewHits::produce(art::Event &e) {
   // Loop to fill
   for (unsigned int i=0; i <= nHits; ++i ) {
     
-    // We want to fill a hit, make the components!
+    // We want to create a hit, make the components!
     double x = gauss.fire(-5.0,  10.0 );  // Mean = -5, sd=10
     double y = gauss.fire( 5.0,  10.0 );  // Mean = +5, sd=10
     double z = gauss.fire( 0.0,  20.0 );  // Mean =  0, sd=20
@@ -105,33 +109,37 @@ void artex::MakeSimpleTracksFromNewHits::produce(art::Event &e) {
   // need to use @std::move@ on the @std::unique_ptr@ which would reset the pointer!
   
   // In order to make @Ptr@ out of the hits, we need the collection product ID (this is what @Ptr@ actually stores).
-  // We have an ID reserved for us, so let's get it
+  // We have an ID reserved for us as a result of the @produces@ call in the constructor, so let's get it
   art::ProductID hitCollectionID( getProductID<HitDataCollection>(e) );
   
-  // Let's decide how many hit to make
+  // Let's decide how many tracks to make
   unsigned int nTracks = flat.fireInt(5);
   
   mf::LogDebug("MakeSimpleTrackFromNewHits") << "Making " << nTracks << " tracks";
   
-  // Loop over the tracks we're going to make
+  // Loop to create the tracks
   for ( unsigned int iTrack = 0; iTrack < nTracks; iTrack++ ) {
     
     // Let's loop over the hits and randomally assign them to this track.
+    // We'll also apply a cut on the weight of the hit.
     // Note that we're going to start out by making the hit a @Ptr@
 
-    // Make an empty @PtrVector@ to hold the hits we're going to want for our track
+    // Make an empty @PtrVector@ to hold the hits that will make up our track
     art::PtrVector< HitData > desiredHitPtrs;
     
-    // We'll loop over our hit collection (remember, here @hits@ is a @std::unique_ptr@)
+    // We'll loop over our hit collection (remember, here @hits@ is a @std::unique_ptr@ to the collection)
     for ( unsigned int iHit = 0; iHit < hits->size(); iHit++ ) {
       
-      // Hits have a weight between zero and one. Let's pick hit that have weight > 0.5.
-      // Again, we have the real hit here.
-      if ( ((*hits)[iHit]).weight > hitWeightGreaterThanThis_ ) {
+      // Throw a random number to decide if we want this hit on the track, and also
+      // cut on the hit weight (a value between zero and one).
+      // Note how we access the hit information. @(*hits)@ dereferences the @std::unique_ptr@ and @[iHit]@
+      // gets the iHit'th element, which is a @Hit@ object, so we can do @.weight@ to access that information. 
+      if ( flat.fire() > 0.5 &&  ((*hits)[iHit]).weight > hitWeightGreaterThanThis_ ) {
         
         // We want this hit. Now we need to make a Ptr out of it. Since the hit isn't in the event
-        // yet, we'll pass to the constructor of Ptr a deferred function that can get the hit information
-        // after it goes into the event
+        // yet, so we have no handle to pass to the @Ptr@ constructor. Instead, we pass the ID for the hit collection,
+        // the index of the hit in the collection, and call a function that will return an object used by
+        // Art later to access the object within the event (hint: don't worry how this works, just follow this pattern).
         art::Ptr< HitData > aHitPtr( hitCollectionID, iHit, e.productGetter(hitCollectionID) );
         
         // Keep the hit - add the hit @Ptr@ to my vector
@@ -140,7 +148,7 @@ void artex::MakeSimpleTracksFromNewHits::produce(art::Event &e) {
     }
     
     // We've looped over all the hits. Did we get any?
-    if ( desiredHitPtrs.size() > 0 ) {
+    if ( ! desiredHitPtrs.empty() ) {
       
       // Make the track (with random numbers)
       double px = gauss.fire(-5.0, 10.0);
@@ -166,9 +174,11 @@ void artex::MakeSimpleTracksFromNewHits::produce(art::Event &e) {
 }
 
 void artex::MakeSimpleTracksFromNewHits::endJob() {
+  
   // Let's print out some summary information
   mf::LogInfo("Track Construction Done") << "makeSimpleTracksFromNewHits produced " << madeNHits_ << " hits and " <<
              madeNTracks_ << " tracks with a total of " << madeNHitsOnTracks_ << " hits on the tracks in " << nEvents_ << " events";
+
 }
 
 // Better not forget the macro call

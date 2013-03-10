@@ -1,6 +1,6 @@
 // This is the ReadSimpleTracks Art module.
 
-//  This is an analyzer that will read SimpleTrackData from the event and print some stuff out
+//  This is an analyzer that will read SimpleTrackData from the event and make some plots
 
 // Art includes
 #include "art/Framework/Core/EDAnalyzer.h"
@@ -9,7 +9,6 @@
 
 // Root + Art includes
 #include "TH1F.h"
-#include "TTree.h"
 #include "art/Framework/Services/Optional/TFileService.h"
 #include "art/Framework/Services/Registry/ServiceHandle.h"
 
@@ -36,14 +35,15 @@ public:
   
 private:
   
-  // Declare member data here.
+  // Declare member data here
   
   // To find the hit data, we need the name of the module that produced it and an
-  // instance name.
+  // instance name. Note that we don't need to directly access the hit collection, so
+  // we don't need those labels. 
   std::string trackModuleLabel_;
   std::string trackInstanceLabel_;
   
-  // Names of the sub-directories in the root file
+  // Name of the sub-directories in the root file
   std::string hist_dir_;
   
   // The histograms
@@ -65,9 +65,8 @@ hist_dir_           ( p.get<std::string>("hist_dir",           "") )
   // Get the service handle - dereferencing this will be an object that inherits
   // from TFileDirectory - so it can do the same things as TFileDirectory
   art::ServiceHandle<art::TFileService> tfs;
-  
-  // Do the histograms first.
-  // Let's assume the top directory. This is *tfs itself
+
+  // Get the top level directory (has name of the module label of this module)
   art::TFileDirectory histDir = *tfs;
   
   // Did we specify a directory? If so, reassign histDir to the new directory
@@ -84,12 +83,11 @@ hist_dir_           ( p.get<std::string>("hist_dir",           "") )
 }
 
 artex::ReadSimpleTracks::~ReadSimpleTracks() {
-  // Clean up dynamic memory and other resources here.
 }
 
 void artex::ReadSimpleTracks::analyze(art::Event const &e) {
   
-  // Extract the hits
+  // Extract the hits:
   
   // Make the handle
   art::Handle< SimpleTrackDataCollection > trackCollectionHandle;
@@ -103,14 +101,16 @@ void artex::ReadSimpleTracks::analyze(art::Event const &e) {
   // Let's use the nice C++11 vector iteration
   for ( auto aTrack : tracks) {
     
+    // Fill histograms
     h_track_px_  -> Fill( aTrack.px );
     h_track_py_  -> Fill( aTrack.py );
     h_track_pz_  -> Fill( aTrack.pz );
     
-    // Fill the hit information
+    // Fill the hit information. Simply use the @hits@ member of @SimpleTrack@
     h_nHits_     -> Fill( aTrack.hits.size() );
     
-    // Loop over those hits
+    // Loop over those hits. The @aTrack.hits@ @PtrVector@ acts like a regular vector,
+    // so we can use the nice range for feature of C++11
     for ( auto aHit : aTrack.hits ) {
       h_hit_weight_ -> Fill( aHit->weight );
     }
