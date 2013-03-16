@@ -57,6 +57,5 @@ The best way to learn Art is with examples. This Redmine package, @gm2artexample
 
 h2. A quick tour of @gm2artexamples@
 
-Cllick <a href="https://cdcvs.fnal.gov/codeDocify/codedocify/rmineRepository.html?proj=gm2artexamples&rev=&rev&">here</a> to start exploring the files in this example.
+Cllick <a href="https://cdcvs.fnal.gov/codeDocify/codedocify/rmineRepository.html?proj=gm2artexamples&rev=&rev&">here</a> to start exploring the files in this example. Don't know what file to look at first? Click on previous link, then click on DataObjects and then CMakeLists.txt. Follow subsequesnt links to continue with the tutorial. When done with the @DataObjects@ directory, click on Parent and then look at the modules in Lesson1 and the hello and "Datum" fcl files in the fcl directory. Then try @HitsAndTrackObjects@, the modules in Lesson2, and finally the hit and tracks fcl files in the fcl directory.
 
-# This should generate mail?
