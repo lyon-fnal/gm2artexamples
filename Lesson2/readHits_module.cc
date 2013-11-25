@@ -56,6 +56,7 @@ private:
 
 
 artex::readHits::readHits(fhicl::ParameterSet const &p) :
+  art::EDAnalyzer(p),
     hitModuleLabel_ ( p.get<std::string>("hitModuleLabel",  "HitDataMaker"   ) ),
     instanceName_   ( p.get<std::string>("instanceName",    ""     ) ),
     hist_dir_       ( p.get<std::string>("hist_dir"         ) ),

@@ -64,6 +64,7 @@ private:
 // is the type of the value, @int@ in this case. The function argument is the name of the parameter in the
 // @.fcl@ file. 
 artex::HelloWorld2::HelloWorld2(fhicl::ParameterSet const &p) :
+  art::EDAnalyzer(p),
   m_magicNumber(p.get<int>("magicNumber")) 
 {
   // Let's print out a little message on construction

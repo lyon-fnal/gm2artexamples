@@ -53,6 +53,7 @@ private:
 
 
 artex::ReadSimpleTracks::ReadSimpleTracks(fhicl::ParameterSet const &p) :
+  art::EDAnalyzer(p),
 trackModuleLabel_   ( p.get<std::string>("trackModuleLabel",  "TrackMaker"   ) ),
 trackInstanceLabel_ ( p.get<std::string>("trackInstanceName",  ""     ) ),
 hist_dir_           ( p.get<std::string>("hist_dir",           "") )

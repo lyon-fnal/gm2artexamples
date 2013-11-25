@@ -3,4 +3,4 @@
 
 # Use the @art_make@ macro to tell CMake how to build the modules. These modules depend on the data products defined in their shared object. Use the @LIBRARIES@ option to specify that dependence.
 
-art_make( LIBRARIES "gm2artexamples_DataObjects")
+art_make( MODULE_LIBRARIES "gm2artexamples_DataObjects")
