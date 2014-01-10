@@ -43,7 +43,9 @@ private:
 };
 
 // Definition of the constructor which doesn't do anything
-artex::MyDatumReader::MyDatumReader(fhicl::ParameterSet const &) {}
+artex::MyDatumReader::MyDatumReader(fhicl::ParameterSet const &p) 
+  : art::EDAnalyzer(p)
+{}
 
 // Definition of the destructor which doesn't do anything
 artex::MyDatumReader::~MyDatumReader() {}

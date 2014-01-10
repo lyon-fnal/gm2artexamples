@@ -27,7 +27,8 @@ public:
     
     // Constructor
     MyLittleDatumAnalyzer( fhicl::ParameterSet const & p )
-        : input_label_( p.get<std::string>("input_label") )
+      : art::EDAnalyzer(p),
+	input_label_( p.get<std::string>("input_label") )
         { }
     
     virtual void analyze( art::Event const & e );

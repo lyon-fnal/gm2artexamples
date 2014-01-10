@@ -25,7 +25,7 @@ void ensure( int which, const std::string message, bool claim ) {
 int main () {
     
     // Test the default constructor
-    artex::MyLittleDatum a;
+  artex::MyLittleDatum a;
     ensure(1, "Default constructor", a.datum == 0 );
     
     // Test the constructor with an argument

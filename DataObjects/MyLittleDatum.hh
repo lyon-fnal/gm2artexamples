@@ -26,7 +26,7 @@ namespace artex {
         
         // Every class needs a default constructor for the persistency mechanism. Since we hold a value,
         // it will be set to zero
-        MyLittleDatum() {};
+      MyLittleDatum() : datum(0.0) {};
 
         // Hide the following member functions from Root
         #ifndef __GCCXML__

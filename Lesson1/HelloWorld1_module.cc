@@ -53,8 +53,9 @@ namespace artex {
   // h3. Class implementation
 
   // Definition for constructor (it doesn't do anything)
-  HelloWorld1::HelloWorld1(fhicl::ParameterSet const& ){
-  }
+  HelloWorld1::HelloWorld1(fhicl::ParameterSet const& pset) :
+    art::EDAnalyzer(pset)
+{ }
     
   // Definition of the destructor (does nothing)
   HelloWorld1::~HelloWorld1() {}
