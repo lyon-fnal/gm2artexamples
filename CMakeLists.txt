@@ -24,7 +24,7 @@ include(ArtMake)
 # Configure
 cet_cmake_env()
 
-set_install_root()
+#set_install_root()
 
 # Set compiler flags
 cet_set_compiler_flags( DIAGS VIGILANT
