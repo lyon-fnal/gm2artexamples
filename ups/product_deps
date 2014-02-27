@@ -14,7 +14,7 @@ art              v1_08_10
 
 # Some dependencies are needed just for *building* our product. Those go here.
 
-only_for_build	cetbuildtools	v3_07_03
+only_for_build	cetbuildtools	v3_07_08
 
 # We now specify a translation table for how the qualifers of our product translate
 # to qualifiers of dependents. If a dependent doesn't have a qualifier, use "-nq-" (don't include

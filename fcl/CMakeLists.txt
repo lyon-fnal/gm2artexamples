@@ -11,5 +11,5 @@ install( FILES ${fcl_files}
 # Also, copy the fcl files to the build area
 foreach(aFile ${fcl_files})
   get_filename_component( basename ${aFile} NAME )
-  configure_file( ${aFile} ${CMAKE_BINARY_DIR}/fcl/${basename} COPYONLY )
+  configure_file( ${aFile} ${CMAKE_BINARY_DIR}/${product}/fcl/${basename} COPYONLY )
 endforeach(aFile)
