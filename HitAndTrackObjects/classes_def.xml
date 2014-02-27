@@ -1,0 +1,16 @@
+<!--  art::Wrapper lines need only top level data product objects  -->
+
+<lcgdict>
+    <!-- For HitData - note that using the typedef will not work here-->
+    <class name="artex::HitData"/>
+    <class name="std::vector< artex::HitData >"/>
+    <class name="art::Wrapper< std::vector< artex::HitData > >"/>
+  
+    <!-- For SimpleTrackData -->
+    <class name="artex::SimpleTrackData"/>
+    <class name="std::vector< artex::SimpleTrackData >" />
+    <class name="art::Wrapper< std::vector< artex::SimpleTrackData > >" />
+    <class name="art::Ptr< artex::HitData >" />
+    <class name="art::PtrVector< artex::HitData >" />
+  
+</lcgdict>

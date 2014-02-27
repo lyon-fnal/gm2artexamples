@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+    <title>Testing</title>
+    <meta charset="UTF-8">
+    <link type="text/css" href="/css/codeDocifyDoc.css" rel="stylesheet">
+</head>
+<body>
+    
+    <h1>gm2artexamples/Testing</h1>
+    <blockquote>
+        <p>Adam Lyon, <span class="caps">FNAL</span> <span class="caps">SCD</span><br />
+        February 2012<br />
+        Revision: ##rev##</p>
+    </blockquote>
+    <h2>How to do testing in Art</h2>
+    <p>Art provides a very flexible testing framework allowing for various types of unit and integration tests. For example, you can do the following:</p>
+    <ul>
+        <li>Write a stand-alone C++ program that performs unit tests and sets an exit code (0 passes)</li>
+    </ul>
+    <ul>
+        <li>Write units tests using the <span class="caps">BOOST</span> Unit Test Facility (<span class="caps">UTF</span>)</li>
+    </ul>
+    <ul>
+        <li>Write integration tests that run a script which returns an exit code</li>
+    </ul>
+    <ul>
+        <li>Write integration tests that run Art itself with special unit tests modules</li>
+    </ul>
+    <p>The best way to get started is to look at the <a href="?path=test/CMakeLists.txt">test/CMakeLists.txt</a> file.</p>
+
+    
+</body>
+</html>

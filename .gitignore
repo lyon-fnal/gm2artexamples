@@ -1,0 +1,4 @@
+# Ignore emacs backup files
+.#*
+*xcode*
+.DS_Store

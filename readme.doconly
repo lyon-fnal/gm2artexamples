@@ -1,0 +1,61 @@
+/css/codeDocifyDoc.css
+h1. Art Tutorial for g-2 
+
+bq. Adam Lyon (FNAL SCD)<br />
+
+This document is a tutorial for Art. It explains the code in the @gm2artexamples@ Redmine project. 
+
+h2. Art is a **Framework**
+
+What is a framework?
+
+* Handles i/o for reading and writing data.
+* Provides hooks to run your algorithms on every event, run, sub-run, ...
+* Your algorithms and code live in pluggable modules. The framework loads them.
+* The framework has facilities for configuration (itself and your code).
+* Services are provided that your code can use (e.g. Random numbers, histogramming, ...).
+
+You write your code in small bits that fit into a big system.
+
+h2. What does your code do in a Framework?
+
+In simple terms, your code can,
+
+* Run on every event and produce data to put into the event.
+* Run on every event and look at data. Make histograms, ntuples, ...
+* Run a filter on every event (if it passes, continue processing)
+* Load calibrations, geometries, etc
+
+Art, like all frameworks, can do much more than the above. It is quite flexible. We will explore many of its capabilities. 
+
+h2. Where is the Art documentation?
+
+There is no comprehensive manual for Art, unfortunately. Instead, documentation is scattered about many experiments. Here is a list of what to look for (aside from here).
+
+* The main tutorial from the developers is at "oink.fnal.gov":http://oink.fnal.gov/new_tut/tutorial.html#(1) . It is meant to be given as a talk and not read alone, but it has useful definitions and some code. 
+
+NOvA has some nice documentation on Redmine that should be viewable to you.
+
+* "Using the Framework":https://cdcvs.fnal.gov/redmine/projects/novaart/wiki/Using_the_Framework is best. Note that _FMWK_ was their old framework system that Art replaced. 
+* "Running Jobs":https://cdcvs.fnal.gov/redmine/projects/novaart/wiki/Running_Jobs has nice information on FHICL (the configuration language that Art uses). 
+
+Mu2e has some very extensive documentation "here":http://mu2e.fnal.gov/public/hep/computing/gettingstarted.shtml . Scroll down to the heading "Mu2e maintained documentation about art and its tool chain"
+
+Some other links on Redmine are "Art source and development":https://cdcvs.fnal.gov/redmine/projects/art , "CET Library":https://cdcvs.fnal.gov/redmine/projects/cetlib , "Message Facility":https://cdcvs.fnal.gov/redmine/projects/messagefacility and "FHICL Configuration Language":https://cdcvs.fnal.gov/redmine/projects/fhicl-cpp
+
+h2. How does g-2 fit into Art?
+
+ART is designed for event processing. For collider detectors, an event corresponds to a beam crossing. For g-2, the closest thing to an event is a beam spill -- that is the bunch of protons that hit the target, creating pions, then muons that enter the g-2 ring. Those muons eventually make positrons that are detected in the calorimeters and other detectors. All of the signals corresponding to one spill would make up an ART event.
+
+A run would be the group of events (or spills) that occurred during a particular configuration of the ring and detectors. For example, a run would correspond to a particular set of calibration constants or geometry.
+
+I'm not sure what we would do with sub-run. Typically, most experiments break up runs based on time (e.g. one hour of running) to make bookkeeping easier.
+
+h2. Learning Art with examples
+
+The best way to learn Art is with examples. This Redmine package, @gm2artexamples@ is meant to be a guide to coding and using Art. Review the instructions in "DevelopingCode":https://cdcvs.fnal.gov/redmine/projects/g-2/wiki/DevelopingCode for how to setup your environment, checking out code, and building it. 
+
+h2. A quick tour of @gm2artexamples@
+
+Cllick <a href="https://cdcvs.fnal.gov/codeDocify/codedocify/rmineRepository.html?proj=gm2artexamples&rev=&rev&">here</a> to start exploring the files in this example. Don't know what file to look at first? Click on previous link, then click on DataObjects and then CMakeLists.txt. Follow subsequesnt links to continue with the tutorial. When done with the @DataObjects@ directory, click on Parent and then look at the modules in Lesson1 and the hello and "Datum" fcl files in the fcl directory. Then try @HitsAndTrackObjects@, the modules in Lesson2, and finally the hit and tracks fcl files in the fcl directory.
+
