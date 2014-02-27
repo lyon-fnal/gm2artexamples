@@ -3,7 +3,7 @@
 # See the "documentation":https://cdcvs.fnal.gov/redmine/projects/cet-is-public/wiki/Defining_products_in_the_CET_build_environment for @product_deps@ files. 
 
 # The *parent* line must the first non-commented line and defines the product name and version of this product
-parent gm2artexamples v0_4
+parent gm2artexamples v1_00_00
 defaultqual e4
 
 # We now list the dependencies in a table. You should *not* add dependents of the products listed in the 
@@ -20,7 +20,7 @@ only_for_build	cetbuildtools	v3_07_08
 # to qualifiers of dependents. If a dependent doesn't have a qualifier, use "-nq-" (don't include
 # the quotes). If, for a particular qualifer the product does not need to be set up at all, use "-". The @notes@ 
 # column is for any comments about the qualifiers. 
-qualifier        art             notes
-e4:debug         e4:debug              
+qualifier        art        notes
+e4:debug         e4:debug   
 e4:opt           e4:opt     
-e4:prof          e4:prof
+e4:prof          e4:prof    
