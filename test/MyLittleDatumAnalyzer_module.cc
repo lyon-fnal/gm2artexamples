@@ -1,7 +1,10 @@
 // Analyze MyLittleDatum in the event. Make sure it has the right quantitiy.
 
 // Use Boost Unit Test Facility
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #include <boost/test/included/unit_test.hpp>
+#pragma GCC diagnostic pop
 
 // Include Art stuff
 #include "art/Framework/Core/EDAnalyzer.h"
