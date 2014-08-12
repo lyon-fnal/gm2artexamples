@@ -36,6 +36,9 @@ public:
     
     // The usual @analyze@ member function
     virtual void analyze(art::Event const &e) override;
+    
+    // Do stuff
+    void doStuff( artex::MyLittleDatumCollection const& datumVector ) const;
         
 private:
     
@@ -53,22 +56,15 @@ artex::MyDatumReader::~MyDatumReader() {}
 // Definition of the @analyze@ member function
 void artex::MyDatumReader::analyze(art::Event const &e) {
     
+    // Retreive data from the event. Note that @InputTag@ that tells art what data we want (matching the type specified).
+    // The input tag in this case is the _label_ of the producer that created it. You get this from the @makeDatum.fcl@ file. 
+    // Normally, we would pass this label in as a parameter. 
+    auto datumVectorH = e.getValidHandle<artex::MyLittleDatumCollection>( art::InputTag("makeDatumB") );
+   
+    doStuff(*datumVectorH);
+}
 
-    // Retrieving data from the event requires (at least) three steps. Here they are...
-    
-    // 1. Create a templated @art::Handle@ that will hold a "pointer" to the data in the event ( _pointer_ is 
-    // in quotes because the Handle is more complicated, but we will use it like a pointer)
-    art::Handle< artex::MyLittleDatumCollection > datumHandle;
-    
-    // 2. Load the handle with the data in the event. We use the Event's @getByLabel@ member function. 
-    // You supply the _label_ and the handle of the data you want to load. The _label_ is the label of the 
-    // producer that created the data in the producer @.fcl@ file. In this case, it is @makeDatumB@ -- see the @makeDatum.fcl@
-    // file. Calling @getByLabel@ will fill the @datumHandle@
-    e.getByLabel("makeDatumB", datumHandle);
-    
-    // 3. With @datumHandle@ filled by the above step, we can now extract the the data itself by dereferencing the handle 
-    // (like a pointer). Note that we have to use a *const* reference. 
-    artex::MyLittleDatumCollection const& datumVector = *datumHandle;
+void artex::MyDatumReader::doStuff( artex::MyLittleDatumCollection const& datumVector ) const {
     
     // Let's create a logger
     mf::LogInfo log("test");
@@ -77,11 +73,15 @@ void artex::MyDatumReader::analyze(art::Event const &e) {
     log << "Number of datums in list = " << datumVector.size() << "\n";
     
     // Loop over the vector and show the data. Note the use of @size_t@ 
+
     for (size_t i=0; i<datumVector.size(); ++i) {
         log << "   " << datumVector[i].datum << "\n";
     }
-    
-    // End the @analyze@ member function
+
+    // A better way is to use the C++11 Range-based for
+    for ( auto const& d : datumVector ) {
+        log << " " << d.datum << "\n";
+    }
 }
 
 // Usual boilerplate
