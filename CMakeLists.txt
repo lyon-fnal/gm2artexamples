@@ -1,48 +1,55 @@
-CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
+# ======================================================================
+#  gm2artexamples main build file
+#
+#  cd .../path/to/build/directory
+#  . mrb setEnv
+#  mrb b
+#  mrb t  # If tests
+#  mrb i  # If install
+# ======================================================================
 
-# project name - use all lowercase)
-PROJECT (gm2artexamples)
 
-set( CETBUILDTOOLS_VERSION $ENV{CETBUILDTOOLS_VERSION} )
-if( NOT CETBUILDTOOLS_VERSION )
-  message( FATAL_ERROR "ERROR: setup cetbuildtools to get the cmake modules" )
-endif()
-set( CMAKE_MODULE_PATH $ENV{CETBUILDTOOLS_DIR}/Modules ${CMAKE_MODULE_PATH} )
+# use cmake 2.8 or later
+cmake_minimum_required (VERSION 2.8)
 
-# art contains cmake modules that we use
-set( ART_VERSION $ENV{ART_VERSION} )
-if( NOT ART_VERSION )
-  message( FATAL_ERROR "ERROR: setup art to get the cmake modules" )
-endif()
-set( CMAKE_MODULE_PATH $ENV{ART_DIR}/Modules ${CMAKE_MODULE_PATH} )
+project(gm2artexamples)
 
-# Include the necessary macros
+# cetbuildtools contains our cmake modules
+SET ( CETBUILDTOOLS_VERSION $ENV{CETBUILDTOOLS_VERSION} )
+IF (NOT CETBUILDTOOLS_VERSION)
+    MESSAGE (FATAL_ERROR "ERROR: setup cetbuildtools to get the cmake modules")
+ENDIF()
+
+set(CMAKE_MODULE_PATH $ENV{ART_DIR}/Modules
+		      $ENV{CETBUILDTOOLS_DIR}/Modules
+		      ${CMAKE_MODULE_PATH})
+
 include(CetCMakeEnv)
-include(BuildPlugins)
-include(ArtMake)
-
-# Configure
 cet_cmake_env()
 
-#set_install_root()
+set_install_root()
 
-# Set compiler flags
-cet_set_compiler_flags( DIAGS VIGILANT
-   WERROR
-   EXTRA_FLAGS -pedantic
-   EXTRA_CXX_FLAGS -std=c++11
+cet_set_compiler_flags(DIAGS CAUTIOUS
+  WERROR
+  NO_UNDEFINED
+  EXTRA_FLAGS -pedantic
+  
 )
 
 cet_report_compiler_flags()
 
-# Locate some UPS areas (the versions are just minimum required) and set up include paths
-find_ups_product(cetbuildtools v3_13_00)
+# these are minimum required versions, not the actual product versions
+find_ups_product( art v1_12_02 )
+find_ups_product( cetbuildtools v4_03_00 )
 
-find_ups_product(art v1_10_00)
 
-include(ArtDictionary) # this must come after find_ups_products
 
-# --> Build these directories
+# macros for dictionary and simple_plugin
+include(ArtDictionary)
+include(ArtMake)
+include(BuildPlugins)
+
+# ADD SOURCE CODE SUBDIRECTORIES HERE
 add_subdirectory( DataObjects )
 add_subdirectory( fcl )
 add_subdirectory( HitAndTrackObjects )
@@ -51,5 +58,5 @@ add_subdirectory( Lesson2 )
 add_subdirectory( ups )
 add_subdirectory( test )
 
-# Packaging facility
+# packaging utility
 include(UseCPack)

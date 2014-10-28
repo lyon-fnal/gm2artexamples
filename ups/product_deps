@@ -4,23 +4,25 @@
 
 # The *parent* line must the first non-commented line and defines the product name and version of this product
 parent gm2artexamples v2_00_00
-defaultqual e5
+defaultqual e6
 
 # We now list the dependencies in a table. You should *not* add dependents of the products listed in the 
 # table. They will be picked up automatically.
 
 product          version
-art              v1_10_00b
+art              v1_12_02
+cetbuildtools    v4_03_00  - only_for_build
+end_product_list
 
 # Some dependencies are needed just for *building* our product. Those go here.
 
-only_for_build	cetbuildtools	v3_13_00
 
 # We now specify a translation table for how the qualifers of our product translate
 # to qualifiers of dependents. If a dependent doesn't have a qualifier, use "-nq-" (don't include
 # the quotes). If, for a particular qualifer the product does not need to be set up at all, use "-". The @notes@ 
 # column is for any comments about the qualifiers. 
 qualifier        art        notes
-e5:debug         e5:debug   
-e5:opt           e5:opt     
-e5:prof          e5:prof    
+e6:debug         e6:debug   
+e6:opt           e6:opt     
+e6:prof          e6:prof    
+end_qualifier_list
