@@ -1,10 +1,7 @@
 // Analyze MyLittleDatum in the event. Make sure it has the right quantitiy.
 
 // Use Boost Unit Test Facility
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-#include <boost/test/included/unit_test.hpp>
-#pragma GCC diagnostic pop
+#include "art/Utilities/quiet_unit_test.hpp"
 
 // Include Art stuff
 #include "art/Framework/Core/EDAnalyzer.h"
@@ -16,7 +13,7 @@
 #include <string>
 
 // Include MyLittleDatm
-#include "DataObjects/MyLittleDatum.hh"
+#include "DataObjects/MyLittleDatumCollection.hh"
 
 // Declare the namespace
 namespace artextest {
@@ -47,18 +44,11 @@ void artextest::MyLittleDatumAnalyzer::analyze( art::Event const & e )
 {
     // Check the input label
     mf::LogVerbatim("test") << "input_label is " << input_label_;
-
-    // Make the Handle
-    art::Handle<artex::MyLittleDatum> h;
     
-    // Load the data
-    e.getByLabel(input_label_, h);
-    
-    // Extract the data
-    artex::MyLittleDatum const& mld = *h;
+    auto mldH = e.getValidHandle<artex::MyLittleDatumCollection>( art::InputTag(input_label_) );
     
     // Check the data
-    BOOST_REQUIRE_CLOSE(mld.datum, 25.5, .0001);
+    BOOST_REQUIRE_CLOSE( (*mldH)[0].datum, 3.14, .0001);
     
 }  // analyze()
 

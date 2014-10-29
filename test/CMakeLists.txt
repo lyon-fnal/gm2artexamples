@@ -34,6 +34,8 @@ cet_test( test_with_boost USE_BOOST_UNIT )
 simple_plugin( MyLittleDatumProducer "module" NO_INSTALL )
 simple_plugin( MyLittleDatumAnalyzer "module" NO_INSTALL USE_BOOST_UNIT )
 
+# Look in the art source at art/test/Integration/CMakeLists.txt for examples with BOOST (look for art_ut)
+
 # Test writing data to the event and reading it back out again
 # Here, HANDBUILT means that the modules and executables will already exist 
 # and in the right places in the build directory or PATH. 

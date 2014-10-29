@@ -52,7 +52,7 @@ artex::ProduceMyLittleDatum::ProduceMyLittleDatum(fhicl::ParameterSet const &)
 void artex::ProduceMyLittleDatum::produce(art::Event &e) {
     
     // Create an empty data product (in this case a @artex::MyLittleDatumCollection@
-    std::unique_ptr< artex::MyLittleDatumCollection > datums(new artex::MyLittleDatumCollection);
+    auto datums = std::make_unique< artex::MyLittleDatumCollection >();
     
     // Fill it with some bogus values. We'll put four values in the vector (e.g. like having
     // four hits)
