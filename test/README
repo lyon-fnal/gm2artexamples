@@ -1,0 +1,1 @@
+To run the tests, do "mrb t". To look at the test logs (e.g. if there are errors) look in the build area $MRB_BUILDDIR/Testing/Temporary/LastTest.log
