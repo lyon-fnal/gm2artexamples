@@ -1,13 +1,14 @@
 # ======================================================================
 #  gm2artexamples main build file
 #
-#  cd .../path/to/build/directory
-#  . mrb setEnv
-#  mrb b
-#  mrb t  # If tests
-#  mrb i  # If install
+#  . mrb slp   # Run if you have local products to set up
+#  . mrb s     # Needed to set up local development products
+#  mrb b       # Build
+#  mrb t       # Test (if applicable)
+#  mrb i       # Install to local products
+#  gm2 -c <fhicl_file>  # Run!
+#
 # ======================================================================
-
 
 # use cmake 2.8 or later
 cmake_minimum_required (VERSION 2.8)
@@ -31,16 +32,9 @@ set_install_root()
 # Add ART_MAKE_PREPEND_PRODUCT_NAME
 set (ART_MAKE_PREPEND_PRODUCT_NAME TRUE)
 
-if ( ${APPLE} )
-  cet_set_compiler_flags(DIAGS CAUTIOUS
+cet_set_compiler_flags(DIAGS CAUTIOUS
      WERROR
      EXTRA_FLAGS -pedantic )
-else()
-     cet_set_compiler_flags(DIAGS CAUTIOUS
-     WERROR
-     EXTRA_FLAGS -pedantic )
-endif()
-
 
 cet_report_compiler_flags()
 
@@ -48,9 +42,7 @@ cet_report_compiler_flags()
 find_ups_product( art v1_12_02 )
 find_ups_product( clhep v2_2_0_3 )
 
-find_ups_product( cetbuildtools v4_03_01 )
-
-
+find_ups_product( cetbuildtools v4_03_02 )
 
 # macros for dictionary and simple_plugin
 include(ArtDictionary)
