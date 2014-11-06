@@ -27,9 +27,11 @@ class artex::HelloWorld2 : public art::EDAnalyzer {
 
 public:
 
-  // Constructor and destructor
+  // Constructor
   explicit HelloWorld2(fhicl::ParameterSet const &p);
-  virtual ~HelloWorld2();
+
+  // We can explicitly tell the compiler to make the destructor (not that we have to)
+  ~HelloWorld2() = default;
 
   // h4. Member function declaration
     
@@ -72,10 +74,6 @@ artex::HelloWorld2::HelloWorld2(fhicl::ParameterSet const &p) :
                           << "Magic number is " << m_magicNumber
                           << std::endl;
 }
-
-// Definition of the destructor. We don't do anything here, but you would use this to clean up
-// dynamically allocated memory and other resources.
-artex::HelloWorld2::~HelloWorld2() {}
 
 // Definition of @beginJob@. Note that we print the module parameter that we stored
 void artex::HelloWorld2::beginJob(){

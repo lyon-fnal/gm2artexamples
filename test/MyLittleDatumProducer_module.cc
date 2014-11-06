@@ -10,7 +10,7 @@
 #include <string>
 
 // Include for MyLittleDatum
-#include "DataObjects/MyLittleDatum.hh"
+#include "DataObjects/MyLittleDatumCollection.hh"
 
 // Declare the namespace
 namespace artextest {
@@ -31,7 +31,7 @@ public:
 artextest::MyLittleDatumProducer::MyLittleDatumProducer(fhicl::ParameterSet const &)
 {
     // Tell Art what we are producing
-    produces<artex::MyLittleDatum>();
+    produces<artex::MyLittleDatumCollection>();
 }
 
 // Destructor
@@ -40,8 +40,12 @@ artextest::MyLittleDatumProducer::~MyLittleDatumProducer() {
 
 // Produce method (put the data into the event)
 void artextest::MyLittleDatumProducer::produce(art::Event &e) {
-    std::unique_ptr<artex::MyLittleDatum> mld( new artex::MyLittleDatum(25.5) );
-    e.put(std::move(mld));
+    auto datums = std::make_unique< artex::MyLittleDatumCollection >();
+    
+    // Fill it with some bogus values. We'll put four values in the vector (e.g. like having
+    // four hits)
+    datums->emplace_back( 3.14 );
+    e.put(std::move(datums));
 }
 
 // Standard boiler plate

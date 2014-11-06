@@ -25,9 +25,8 @@ namespace artex {
 class artex::makeHits : public art::EDProducer {
 public:
 
-  // C'tor and D'tor
+  // C'tor 
   explicit makeHits(fhicl::ParameterSet const &p);
-  virtual ~makeHits() {};
 
   // The Art methods
   virtual void produce(art::Event &e) override;
