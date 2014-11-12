@@ -30,9 +30,11 @@ cet_test( test_with_boost USE_BOOST_UNIT )
 # Let's make a very simple integration test for the MyLittleDatum object by running ART with real 
 # modules
 
-# Define producer and analyzer modules (for code, see &l=test/MyLittleDatumProducer_module.cc& and &l=test/MyLittleDatumAnalyzer_module.cc& . Note that we use the @NOINSTALL@ flag since these files don't go into the release sysetm
-simple_plugin( MyLittleDatumProducer "module" NOINSTALL )
-simple_plugin( MyLittleDatumAnalyzer "module" NOINSTALL USE_BOOST_UNIT )
+# Define producer and analyzer modules (for code, see &l=test/MyLittleDatumProducer_module.cc& and &l=test/MyLittleDatumAnalyzer_module.cc& . Note that we use the @NO_INSTALL@ flag since these files don't go into the release sysetm
+simple_plugin( MyLittleDatumProducer "module" NO_INSTALL )
+simple_plugin( MyLittleDatumAnalyzer "module" NO_INSTALL USE_BOOST_UNIT )
+
+# Look in the art source at art/test/Integration/CMakeLists.txt for examples with BOOST (look for art_ut)
 
 # Test writing data to the event and reading it back out again
 # Here, HANDBUILT means that the modules and executables will already exist 

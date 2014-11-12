@@ -30,7 +30,6 @@ public:
     
     // Constructor and destructor
     explicit ProduceMyLittleDatum(fhicl::ParameterSet const &p);
-    virtual ~ProduceMyLittleDatum();
     
     // The @produce@ member function is called on every event
     virtual void produce(art::Event &e) override;
@@ -48,17 +47,12 @@ artex::ProduceMyLittleDatum::ProduceMyLittleDatum(fhicl::ParameterSet const &)
     produces< artex::MyLittleDatumCollection >();
 }
 
-// The destructor. In here is where you would deallocated any resources
-// you needed to produce the data (e.g. random number generators).
-// In our case here, there's nothing for the destructor to do
-artex::ProduceMyLittleDatum::~ProduceMyLittleDatum() {}
-
 // Definition of the @produce@ member function. Runs on each event. Note that we get a 
 // _nonconst_ @art::Event@ reference. So we can change it by adding new data
 void artex::ProduceMyLittleDatum::produce(art::Event &e) {
     
-    //Create an empty data product (in this case a @artex::MyLittleDatumCollection@
-    std::unique_ptr< artex::MyLittleDatumCollection > datums(new artex::MyLittleDatumCollection);
+    // Create an empty data product (in this case a @artex::MyLittleDatumCollection@
+    auto datums = std::make_unique< artex::MyLittleDatumCollection >();
     
     // Fill it with some bogus values. We'll put four values in the vector (e.g. like having
     // four hits)

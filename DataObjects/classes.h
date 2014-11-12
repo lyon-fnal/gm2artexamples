@@ -23,8 +23,11 @@
 
 // Template the vector (do not use the _typedef_) here)
 template class std::vector< artex::MyLittleDatum >;
+//namespace { struct dictionary { std::vector< artex::MyLittleDatum > dummy;
+//                               art::Wrapper< artex::MyLittleDatumCollection > dummy2;}; }
 
 // Template the wrapper for the vector ( _typedef_ ok here)
 template class art::Wrapper< artex::MyLittleDatumCollection >;
+//namespace { struct dictionary { art::Wrapper< artex::MyLittleDatumCollection > dummy; }; }
 
 // If you are following the tutorial, go on to &l=DataObjects/classes_def.xml&.

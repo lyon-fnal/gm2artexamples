@@ -44,8 +44,7 @@ namespace artex {
     // Declare the @analyze@ member function that runs on each event. Note the use of @override@.
     void analyze(const art::Event& event ) override;
       
-    // Declare the destructor (as virtual in case someone inherits from this object)
-    virtual ~HelloWorld1();
+    // Note that we aren't declarting a destructor - let the compiler do it
       
     // End the class declaration
   };
@@ -55,10 +54,8 @@ namespace artex {
   // Definition for constructor (it doesn't do anything)
   HelloWorld1::HelloWorld1(fhicl::ParameterSet const& pset) :
     art::EDAnalyzer(pset)
-{ }
+  { }
     
-  // Definition of the destructor (does nothing)
-  HelloWorld1::~HelloWorld1() {}
 
   // Definition of the @analyze@ member function - run for each event. Note that the event is passed 
   // to the member function as a @const@ reference. That means that the event cannot be changed by the 
